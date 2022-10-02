@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "984058555701",
+    "project_id": "protect-belly",
+    "storage_bucket": "protect-belly.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984058555701:android:cd5bca3d09bd0bcadcf07c",
+        "android_client_info": {
+          "package_name": "com.example.protectbelly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984058555701-scj03g7j454gakq59cli59bbek8jds1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByZN-3x11fzoaBGBRw8TfHKqAvaztvQeU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984058555701-scj03g7j454gakq59cli59bbek8jds1q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
