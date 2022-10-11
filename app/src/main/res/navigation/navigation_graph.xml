@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/workoutDashboardFragment">
+
+    <fragment
+        android:id="@+id/workoutDashboardFragment"
+        android:name="com.example.protectbelly.fragments.workouts.WorkoutDashboardFragment"
+        android:label="fragment_workout_dashboard"
+        tools:layout="@layout/fragment_workout_dashboard" />
+    <fragment
+        android:id="@+id/accountDetailsFragment"
+        android:name="com.example.protectbelly.fragments.account.AccountDetailsFragment"
+        android:label="fragment_account_details"
+        tools:layout="@layout/fragment_account_details" />
+</navigation>
