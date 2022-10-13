@@ -16,4 +16,23 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Tab Name -->
+    <string name="Tab_Workouts">Workouts</string>
+    <string name="Tab_Calendar">Calendar</string>
+    <string name="Tab_Diary">Diary</string>
+    <string name="Tab_Social">Social</string>
+    <string name="Tab_Account">Account</string>
+
+    <!-- Fragment Title -->
+    <string name="Calendar_Fragment_Title">This is the main Calendar Fragment</string>
+    <string name="Diary_Fragment_Title">This is the main Diary Fragment</string>
+    <string name="Social_Fragment_Title">This is the main Social Fragment</string>
+    <string name="Group_Fragment_Title">This is the main Group Details Fragment</string>
+    <string name="Leaderboard_Fragment_Title">This is the main Leaderboard Fragment</string>
+
+    <string name="go_to_group_screen">Go to Group Screen</string>
+    <string name="go_back_to_social">Go Back To Social</string>
+    <string name="go_to_leaderboard">Go To Leaderboard</string>
+    <string name="go_back_to_group">Go Back To Group</string>
 </resources>
