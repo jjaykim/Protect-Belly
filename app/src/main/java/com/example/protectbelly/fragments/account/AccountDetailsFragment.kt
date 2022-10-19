@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.protectbelly.databinding.FragmentAccountDetailsBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -41,7 +42,13 @@ class AccountDetailsFragment : Fragment() {
 
         binding = FragmentAccountDetailsBinding.inflate(inflater, container,false)
 
-        binding.btLogOut.setOnClickListener {
+        // Allows navigation between fragments
+        binding.btnEdit.setOnClickListener {
+            val action = AccountDetailsFragmentDirections.actionAccountDetailsFragmentToEditAccountDetailsFragment();
+            container?.findNavController()?.navigate(action);
+        }
+
+        binding.btnLogOut.setOnClickListener {
             FirebaseAuth.getInstance().signOut();
         }
 
