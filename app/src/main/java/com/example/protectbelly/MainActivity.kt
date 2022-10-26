@@ -2,16 +2,25 @@ package com.example.protectbelly
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.protectbelly.auth.FirebaseUIActivity
 import com.example.protectbelly.databinding.ActivityMainBinding
+import com.example.protectbelly.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
     private lateinit var binding: ActivityMainBinding;
+    private val db = Firebase.firestore;
+    private val auth = FirebaseAuth.getInstance();
+    companion object{
+        lateinit var currentUser:User;
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +32,11 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         var navController = navHostFragment.navController;
 
         NavigationUI.setupWithNavController(binding.bottomNavigationView,navController);
+
+
+
+        initUser();
+        initUserData();
 
 //        val navHostFragment = supportFragmentManager.findFragmentById();
 
@@ -54,6 +68,34 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
             var intent = Intent(this, FirebaseUIActivity::class.java)
             startActivity(intent);
             finish()
+        }
+    }
+
+    private fun initUser() {
+
+        currentUser = User()
+        currentUser.name = auth.currentUser?.displayName
+        currentUser.uid = auth.currentUser?.uid
+        currentUser.email = auth.currentUser?.email
+        currentUser.phoneNo = auth.currentUser?.phoneNumber
+    }
+
+    private fun initUserData() {
+
+        db.collection("users").whereEqualTo("uid", auth.currentUser?.uid.toString())
+            .get()
+            .addOnCompleteListener { task ->
+                if(task.result.documents.size > 0) {
+                    task.result.documents[0].data?.map { currentUser }
+                    currentUser.documentId = task.result.documents[0].id
+                } else {
+                    db.collection("users").add(currentUser).addOnSuccessListener {
+                        task ->
+                        currentUser.documentId = task.id
+                    }.addOnFailureListener {
+                        Log.d("ABC", "Failed to add user")
+                    };
+                }
         }
     }
 
