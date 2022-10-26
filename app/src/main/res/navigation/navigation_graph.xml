@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_accountDetailsFragment_to_editAccountDetailsFragment"
             app:destination="@id/editAccountDetailsFragment" />
+        <action
+            android:id="@+id/action_accountDetailsFragment_to_personalAccountDetailsFragment"
+            app:destination="@id/personalAccountDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editAccountDetailsFragment"
@@ -68,4 +71,9 @@
             android:id="@+id/action_leaderboardDetailsFragment_to_groupDetailsFragment"
             app:destination="@id/groupDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/personalAccountDetailsFragment"
+        android:name="com.example.protectbelly.fragments.account.PersonalAccountDetailsFragment"
+        android:label="fragment_personal_account_details"
+        tools:layout="@layout/fragment_personal_account_details" />
 </navigation>
