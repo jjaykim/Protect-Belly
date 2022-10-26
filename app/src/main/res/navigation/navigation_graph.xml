@@ -26,7 +26,11 @@
         android:id="@+id/editAccountDetailsFragment"
         android:name="com.example.protectbelly.fragments.account.EditAccountDetailsFragment"
         android:label="fragment_edit_account_details"
-        tools:layout="@layout/fragment_edit_account_details" />
+        tools:layout="@layout/fragment_edit_account_details" >
+        <action
+            android:id="@+id/action_editAccountDetailsFragment_to_accountDetailsFragment"
+            app:destination="@id/accountDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendarDetailsFragment"
         android:name="com.example.protectbelly.fragments.calendar.CalendarDetailsFragment"
