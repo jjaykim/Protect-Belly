@@ -7,7 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.protectbelly.R
+import com.example.protectbelly.models.Exercise
+import com.example.protectbelly.models.ExerciseResponseObject
+import com.example.protectbelly.network.RetrofitClient
 import com.google.firebase.auth.FirebaseAuth
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +29,7 @@ class WorkoutDashboardFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var exercises: ArrayList<Exercise> = ArrayList<Exercise>();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +44,37 @@ class WorkoutDashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var auth = FirebaseAuth.getInstance();
-        var idToken = auth.currentUser?.uid;
 
-        Log.d("ABC", "onSignInResult: " + idToken);
+        var api = RetrofitClient.getInstance()?.getApi();
+
+        if(exercises.isEmpty()) {
+            val request = api?.getAllExercises();
+
+            request?.enqueue(object : Callback<ExerciseResponseObject> {
+                override fun onResponse(
+                    call: Call<ExerciseResponseObject?>,
+                    response: Response<ExerciseResponseObject?>
+                ) {
+                    if (!response.isSuccessful) {
+                        Log.d(
+                            "ABC",
+                            "Error from API with response code: " + response.code()
+                        )
+                        return
+                    }
+                    val obj: ExerciseResponseObject? = response.body()
+
+                    exercises.addAll(obj?.results!!)
+                }
+
+                override fun onFailure(call: Call<ExerciseResponseObject>, t: Throwable) {
+                    Log.d(
+                        "ABC",
+                        t.message!!
+                    )
+                }
+            })
+        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_workout_dashboard, container, false)
