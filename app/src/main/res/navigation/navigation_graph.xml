@@ -9,7 +9,11 @@
         android:id="@+id/workoutDashboardFragment"
         android:name="com.example.protectbelly.fragments.workouts.WorkoutDashboardFragment"
         android:label="fragment_workout_dashboard"
-        tools:layout="@layout/fragment_workout_dashboard" />
+        tools:layout="@layout/fragment_workout_dashboard" >
+        <action
+            android:id="@+id/action_workoutDashboardFragment_to_addRoutineUseTemplateFragment"
+            app:destination="@id/addRoutineUseTemplateFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountDetailsFragment"
         android:name="com.example.protectbelly.fragments.account.AccountDetailsFragment"
@@ -76,4 +80,34 @@
         android:name="com.example.protectbelly.fragments.account.PersonalAccountDetailsFragment"
         android:label="fragment_personal_account_details"
         tools:layout="@layout/fragment_personal_account_details" />
+    <fragment
+        android:id="@+id/addRoutineUseTemplateFragment"
+        android:name="com.example.protectbelly.fragments.workouts.AddRoutineUseTemplateFragment"
+        android:label="fragment_add_routine_use_template"
+        tools:layout="@layout/fragment_add_routine_use_template" >
+        <action
+            android:id="@+id/action_addRoutineUseTemplateFragment_to_addRoutineEnterDetailsFragment"
+            app:destination="@id/addRoutineEnterDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRoutineEnterDetailsFragment"
+        android:name="com.example.protectbelly.fragments.workouts.AddRoutineEnterDetailsFragment"
+        android:label="fragment_add_routine_enter_details"
+        tools:layout="@layout/fragment_add_routine_enter_details" >
+        <action
+            android:id="@+id/action_addRoutineEnterDetailsFragment_to_addRoutineUseTemplateFragment"
+            app:destination="@id/addRoutineUseTemplateFragment" />
+        <action
+            android:id="@+id/action_addRoutineEnterDetailsFragment_to_selectExerciseFragment"
+            app:destination="@id/selectExerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectExerciseFragment"
+        android:name="com.example.protectbelly.fragments.workouts.SelectExerciseFragment"
+        android:label="fragment_select_exercise"
+        tools:layout="@layout/fragment_select_exercise" >
+        <action
+            android:id="@+id/action_selectExerciseFragment_to_addRoutineEnterDetailsFragment"
+            app:destination="@id/addRoutineEnterDetailsFragment" />
+    </fragment>
 </navigation>
