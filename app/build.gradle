@@ -70,5 +70,7 @@ dependencies {
     // fragments
     def fragment_version = "1.4.1"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
-
+    
+    // card view
+    implementation "androidx.cardview:cardview:1.0.0"
 }
