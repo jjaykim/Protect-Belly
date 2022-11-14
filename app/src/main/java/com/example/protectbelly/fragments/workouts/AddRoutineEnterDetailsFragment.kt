@@ -10,11 +10,13 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.protectbelly.databinding.FragmentAddRoutineEnterDetailsBinding
+import com.example.protectbelly.models.Routine
+import com.example.protectbelly.models.Workout
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM2 = "Routine"
 
 /**
  * A simple [Fragment] subclass.
@@ -24,14 +26,14 @@ private const val ARG_PARAM2 = "param2"
 class AddRoutineEnterDetailsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
-    private var param2: String? = null
+    private var routine: Routine? = null;
     private lateinit var binding: FragmentAddRoutineEnterDetailsBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            routine = it.getSerializable(ARG_PARAM2) as Routine?;
         }
     }
 
@@ -42,12 +44,17 @@ class AddRoutineEnterDetailsFragment : Fragment() {
         binding = FragmentAddRoutineEnterDetailsBinding.inflate(inflater, container, false);
         binding.btBack.setOnClickListener {
             val action =  AddRoutineEnterDetailsFragmentDirections.actionAddRoutineEnterDetailsFragmentToAddRoutineUseTemplateFragment();
+            action.arguments.putSerializable("Routine", routine);
             container?.findNavController()?.navigate(action);
         }
 
         binding.btNext.setOnClickListener {
             if(validateForm()) {
+                routine?.routineName = binding.etRoutineName.text.toString();
+                routine?.numOfVariations = binding.spVariations.selectedItem.toString().toInt()
+                routine?.workouts = ArrayList<Workout>();
                 val action = AddRoutineEnterDetailsFragmentDirections.actionAddRoutineEnterDetailsFragmentToSelectExerciseFragment();
+                action.arguments.putSerializable("Routine", routine)
                 container?.findNavController()?.navigate(action);
             }
         }
@@ -57,8 +64,6 @@ class AddRoutineEnterDetailsFragment : Fragment() {
         for (i in 1..7) {
             variations.add(i.toString());
         }
-
-
 
         var adapter = ArrayAdapter<String>(context as Context, android.R.layout.simple_spinner_dropdown_item, variations);
         binding.spVariations.adapter = adapter;

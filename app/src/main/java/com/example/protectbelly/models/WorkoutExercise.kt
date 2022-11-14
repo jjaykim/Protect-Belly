@@ -1,15 +1,15 @@
 package com.example.protectbelly.models
 
-open class WorkoutExercise {
-    var workoutExerciseId = 0;
+import java.io.Serializable
+
+open class WorkoutExercise:Serializable {
     var name:String? = null;
 
     constructor() {
 
     }
 
-    constructor(workoutExerciseId: Int, name: String?) {
-        this.workoutExerciseId = workoutExerciseId
+    constructor(name: String?) {
         this.name = name
     }
 }

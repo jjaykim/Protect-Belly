@@ -1,7 +1,8 @@
 package com.example.protectbelly.models
 
-class Workout {
-    var workoutId = 0;
+import java.io.Serializable
+
+class Workout:Serializable {
     var workoutName: String? = null;
     var workoutExercises = ArrayList<WorkoutExercise>();
 
@@ -10,11 +11,9 @@ class Workout {
     }
 
     constructor(
-        workoutId: Int,
         workoutName: String?,
         workoutExercises: ArrayList<WorkoutExercise>
     ) {
-        this.workoutId = workoutId
         this.workoutName = workoutName
         this.workoutExercises = workoutExercises
     }
