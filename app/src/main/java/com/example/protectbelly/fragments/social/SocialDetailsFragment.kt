@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.protectbelly.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,9 +41,9 @@ class SocialDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.goToGroupScreen).setOnClickListener {
-            findNavController().navigate(R.id.action_socialDetailsFragment_to_groupDetailsFragment)
-        }
+//        view.findViewById<Button>(R.id.goToGroupScreen).setOnClickListener {
+//            findNavController().navigate(R.id.action_socialDetailsFragment_to_groupDetailsFragment)
+//        }
     }
 
     companion object {
