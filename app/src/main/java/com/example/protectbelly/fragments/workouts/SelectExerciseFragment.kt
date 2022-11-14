@@ -71,9 +71,7 @@ class SelectExerciseFragment : Fragment() {
                 val obj: ExerciseResponseObject? = response.body()
 
                 exercises.addAll(obj?.results!!)
-                Log.d("ABC",exercises.map { exercise -> exercise.exerciseName }.toString());
 
-                Log.d("ABC", "Exercises: " + exercises.size)
                 var adapter = ArrayAdapter<String>(context as Context, android.R.layout.select_dialog_singlechoice, exercises.map { exercise -> exercise.exerciseName });
                 binding.actvExerciseName.threshold = 1;
                 binding.actvExerciseName.setAdapter(adapter);
@@ -91,6 +89,7 @@ class SelectExerciseFragment : Fragment() {
         binding.btBackRoutineDetails.setOnClickListener {
             val action = SelectExerciseFragmentDirections.actionSelectExerciseFragmentToAddRoutineEnterDetailsFragment();
             action.arguments.putSerializable("Routine", routine);
+            action.arguments.putSerializable("WorkoutIndex", workoutIndex);
             container?.findNavController()?.navigate(action);
         }
 
@@ -130,17 +129,17 @@ class SelectExerciseFragment : Fragment() {
                                 addedWorkoutExercise = WeightExercise();
                                 addedWorkoutExercise.name = addedExercise.exerciseName;
                                 action = SelectExerciseFragmentDirections.actionSelectExerciseFragmentToEnterWeighExerciseDetailsFragment()
+                                action.arguments.putBoolean("IsWeightlifting", true);
                             }
 
                             action.arguments.putSerializable("WorkoutExercise", addedWorkoutExercise);
                             action.arguments.putSerializable("Routine", routine);
+                            action.arguments.putInt("WorkoutIndex", workoutIndex);
                             container?.findNavController()?.navigate(action);
 
                         } else {
                             binding.actvExerciseName.error = "Please select a valid exercise"
                         }
-
-
                     }
 
                     override fun onFailure(call: Call<ExerciseResponseObject>, t: Throwable) {
@@ -150,7 +149,6 @@ class SelectExerciseFragment : Fragment() {
             } else {
                 binding.actvExerciseName.error = "Please select a valid exercise"
             }
-
         }
 
         // Inflate the layout for this fragment

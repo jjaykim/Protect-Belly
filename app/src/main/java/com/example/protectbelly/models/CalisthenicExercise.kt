@@ -18,4 +18,8 @@ class CalisthenicExercise:WorkoutExercise {
         this.sets = sets
         this.reps = reps
     }
+
+    override fun toString(): String {
+        return "CalisthenicExercise(sets=$sets, reps=$reps)"
+    }
 }
