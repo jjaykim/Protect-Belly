@@ -7,6 +7,10 @@ class WeightExercise: WorkoutExercise {
     var incrementWeight = 0;
     var incrementFrequency = 0;
 
+    constructor(): super() {
+
+    }
+
     constructor(
         sets: Int,
         reps: Int,
@@ -22,14 +26,13 @@ class WeightExercise: WorkoutExercise {
     }
 
     constructor(
-        workoutExerciseId: Int,
         name: String?,
         sets: Int,
         reps: Int,
         weight: Int,
         incrementWeight: Int,
         incrementFrequency: Int
-    ) : super(workoutExerciseId, name) {
+    ) : super(name) {
         this.sets = sets
         this.reps = reps
         this.weight = weight

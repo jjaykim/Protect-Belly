@@ -40,7 +40,7 @@ class WorkoutDashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+//
 //        var workoutExerciseList = ArrayList<WorkoutExercise>();
 //        workoutExerciseList.add(CardioExercise(20,"Running",20,30,40));
 //        workoutExerciseList.add(WeightExercise(20,"Squat", 5,5,200,5,1));

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.workouts.EnterCardioExerciseDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/tvExerciseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:text="exerciseName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="64dp"
+        android:text="Enter exercise details:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvExerciseName" />
+
+    <TextView
+        android:id="@+id/tvDistanceGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="44dp"
+        android:text="Distance Goal:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/tvTimeGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="48dp"
+        android:text="Time Goal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDistanceGoal" />
+
+    <TextView
+        android:id="@+id/tvHeartRateGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="48dp"
+        android:text="Heart Rate Goal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimeGoal" />
+
+    <EditText
+        android:id="@+id/etDistanceGoal"
+        android:layout_width="68dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/tvDistanceGoal"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <EditText
+        android:id="@+id/etTimeGoal"
+        android:layout_width="68dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/tvTimeGoal"
+        app:layout_constraintTop_toBottomOf="@+id/etDistanceGoal" />
+
+    <EditText
+        android:id="@+id/etHeartRateGoal"
+        android:layout_width="68dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/tvHeartRateGoal"
+        app:layout_constraintTop_toBottomOf="@+id/etTimeGoal" />
+
+    <Button
+        android:id="@+id/btCardioNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="76dp"
+        android:text="Next"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeartRateGoal" />
+
+    <Button
+        android:id="@+id/btCardioBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="76dp"
+        android:text="Back"
+        app:layout_constraintStart_toEndOf="@+id/btCardioNext"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeartRateGoal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

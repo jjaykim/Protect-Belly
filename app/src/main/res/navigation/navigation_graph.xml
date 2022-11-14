@@ -109,5 +109,29 @@
         <action
             android:id="@+id/action_selectExerciseFragment_to_addRoutineEnterDetailsFragment"
             app:destination="@id/addRoutineEnterDetailsFragment" />
+        <action
+            android:id="@+id/action_selectExerciseFragment_to_enterWeighExerciseDetailsFragment"
+            app:destination="@id/enterWeighExerciseDetailsFragment" />
+        <action
+            android:id="@+id/action_selectExerciseFragment_to_enterCardioExerciseDetailsFragment"
+            app:destination="@id/enterCardioExerciseDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterWeighExerciseDetailsFragment"
+        android:name="com.example.protectbelly.fragments.workouts.EnterWeightExerciseDetailsFragment"
+        android:label="fragment_enter_weigh_exercise_details"
+        tools:layout="@layout/fragment_enter_weight_exercise_details" >
+        <action
+            android:id="@+id/action_enterWeighExerciseDetailsFragment_to_selectExerciseFragment"
+            app:destination="@id/selectExerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterCardioExerciseDetailsFragment"
+        android:name="com.example.protectbelly.fragments.workouts.EnterCardioExerciseDetailsFragment"
+        android:label="fragment_enter_cardio_exercise_details"
+        tools:layout="@layout/fragment_enter_cardio_exercise_details" >
+        <action
+            android:id="@+id/action_enterCardioExerciseDetailsFragment_to_selectExerciseFragment"
+            app:destination="@id/selectExerciseFragment" />
     </fragment>
 </navigation>

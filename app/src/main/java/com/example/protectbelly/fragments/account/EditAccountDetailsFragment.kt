@@ -68,7 +68,7 @@ class EditAccountDetailsFragment : Fragment() {
                 currentUser!!.targetProtein = binding.etProtein.text.toString().toIntOrNull()
                 currentUser!!.targetFat = binding.etFat.text.toString().toIntOrNull()
                 val db = Firebase.firestore;
-                var docRef = db.collection("users").document(currentUser.documentId);
+                var docRef = db.collection("users").document(auth.currentUser?.uid.toString());
                 db.runTransaction { transaction ->
                     var snapshot = transaction.get(docRef);
                     transaction.update(docRef, "age", currentUser?.age);

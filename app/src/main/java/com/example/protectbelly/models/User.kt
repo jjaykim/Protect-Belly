@@ -1,7 +1,6 @@
 package com.example.protectbelly.models
 
 class User {
-    var uid: String? = null;
     var name: String? = null;
     var email: String? = null;
     var age: Int? = null;
@@ -13,14 +12,12 @@ class User {
     var targetCarbs: Int? = null;
     var targetProtein: Int? = null;
     var targetFat: Int? = null;
-    var documentId: String = "";
 
     constructor() {
 
     }
 
     constructor(
-        uid: String?,
         name: String?,
         email: String?,
         age: Int?,
@@ -33,7 +30,6 @@ class User {
         targetProtein: Int?,
         targetFat: Int?
     ) {
-        this.uid = uid
         this.name = name
         this.email = email
         this.age = age
@@ -48,7 +44,7 @@ class User {
     }
 
     override fun toString(): String {
-        return "User(uid=$uid, name=$name, email=$email, age=$age, gender=$gender, height=$height, weight=$weight, phoneNo=$phoneNo, targetCalories=$targetCalories, targetCarbs=$targetCarbs, targetProtein=$targetProtein, targetFat=$targetFat)"
+        return "User(name=$name, email=$email, age=$age, gender=$gender, height=$height, weight=$weight, phoneNo=$phoneNo, targetCalories=$targetCalories, targetCarbs=$targetCarbs, targetProtein=$targetProtein, targetFat=$targetFat)"
     }
 
 

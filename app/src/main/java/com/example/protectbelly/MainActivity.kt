@@ -75,28 +75,42 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
         currentUser = User()
         currentUser.name = auth.currentUser?.displayName
-        currentUser.uid = auth.currentUser?.uid
         currentUser.email = auth.currentUser?.email
         currentUser.phoneNo = auth.currentUser?.phoneNumber
     }
 
     private fun initUserData() {
 
-        db.collection("users").whereEqualTo("uid", auth.currentUser?.uid.toString())
-            .get()
-            .addOnCompleteListener { task ->
-                if(task.result.documents.size > 0) {
-                    task.result.documents[0].data?.map { currentUser }
-                    currentUser.documentId = task.result.documents[0].id
+        db.collection("users").document(auth.currentUser?.uid.toString())
+            .get().addOnSuccessListener { document ->
+                if(document.data != null) {
+                    Log.d("ABC", "User Exists: ${document.data}");
+
+                    document.data?.map { currentUser}
+
                 } else {
-                    db.collection("users").add(currentUser).addOnSuccessListener {
-                        task ->
-                        currentUser.documentId = task.id
-                    }.addOnFailureListener {
-                        Log.d("ABC", "Failed to add user")
-                    };
+                    db.collection("users").document(auth.currentUser?.uid.toString()).set(currentUser);
                 }
-        }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("ABC", "Get failed with", exception);
+            };
+
+//        db.collection("users").whereEqualTo("uid", auth.currentUser?.uid.toString())
+//            .get()
+//            .addOnCompleteListener { task ->
+//                if(task.result.documents.size > 0) {
+//                    task.result.documents[0].data?.map { currentUser }
+//                    currentUser.documentId = task.result.documents[0].id
+//                } else {
+//                    db.collection("users").add(currentUser).addOnSuccessListener {
+//                        task ->
+//                        currentUser.documentId = task.id
+//                    }.addOnFailureListener {
+//                        Log.d("ABC", "Failed to add user")
+//                    };
+//                }
+//        }
     }
 
 }
