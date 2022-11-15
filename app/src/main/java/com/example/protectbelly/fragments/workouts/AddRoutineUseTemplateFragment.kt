@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.protectbelly.databinding.FragmentAddRoutineUseTemplateBinding
+import com.example.protectbelly.models.Routine
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "Routine"
 private const val ARG_PARAM2 = "param2"
 
 /**
@@ -20,14 +21,14 @@ private const val ARG_PARAM2 = "param2"
  */
 class AddRoutineUseTemplateFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var routine: Routine? = null;
     private var param2: String? = null
     private lateinit var binding: FragmentAddRoutineUseTemplateBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            routine = it.getSerializable(ARG_PARAM1) as Routine?;
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -38,8 +39,13 @@ class AddRoutineUseTemplateFragment : Fragment() {
     ): View? {
         binding = FragmentAddRoutineUseTemplateBinding.inflate(inflater,container,false);
 
+        if(routine == null) {
+            routine = Routine();
+        }
+
         binding.btNo.setOnClickListener {
             val action = AddRoutineUseTemplateFragmentDirections.actionAddRoutineUseTemplateFragmentToAddRoutineEnterDetailsFragment();
+            action.arguments.putSerializable("Routine", routine);
             container?.findNavController()?.navigate(action);
         }
 

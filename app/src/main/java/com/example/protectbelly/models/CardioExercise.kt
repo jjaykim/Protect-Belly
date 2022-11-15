@@ -5,6 +5,10 @@ class CardioExercise: WorkoutExercise {
     var distanceGoal = 0;
     var heartRateGoal = 0;
 
+    constructor():super(){
+
+    }
+
     constructor(timeGoal: Int, distanceGoal: Int, heartRateGoal: Int) : super() {
         this.timeGoal = timeGoal
         this.distanceGoal = distanceGoal
@@ -12,12 +16,11 @@ class CardioExercise: WorkoutExercise {
     }
 
     constructor(
-        workoutExerciseId: Int,
         name: String?,
         timeGoal: Int,
         distanceGoal: Int,
         heartRateGoal: Int
-    ) : super(workoutExerciseId, name) {
+    ) : super(name) {
         this.timeGoal = timeGoal
         this.distanceGoal = distanceGoal
         this.heartRateGoal = heartRateGoal

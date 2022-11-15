@@ -1,8 +1,23 @@
 package com.example.protectbelly.models
 
-class Routine {
-    var routineId = 0;
+import java.io.Serializable
+
+class Routine: Serializable {
     var routineName: String? = null;
-    var numOfDays = 0;
+    var numOfVariations = 0;
     var workouts = ArrayList<Workout>();
+
+    constructor() {
+
+    }
+
+    constructor(routineName: String?, numOfVariations: Int, workouts: ArrayList<Workout>) {
+        this.routineName = routineName
+        this.numOfVariations = numOfVariations
+        this.workouts = workouts
+    }
+
+    override fun toString(): String {
+        return "Routine(routineName=$routineName, numOfVariations=$numOfVariations, workouts=$workouts)"
+    }
 }
