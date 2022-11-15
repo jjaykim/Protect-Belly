@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.protectbelly.auth.FirebaseUIActivity
 import com.example.protectbelly.databinding.ActivityMainBinding
+import com.example.protectbelly.models.Group
 import com.example.protectbelly.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
     private val auth = FirebaseAuth.getInstance();
     companion object{
         lateinit var currentUser:User;
+        lateinit var DB_GROUPS: ArrayList<Group>;
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +35,9 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
         NavigationUI.setupWithNavController(binding.bottomNavigationView,navController);
 
-
-
         initUser();
         initUserData();
+        initGetAllGroups();
 
 //        val navHostFragment = supportFragmentManager.findFragmentById();
 
@@ -99,4 +100,18 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         }
     }
 
+    private fun initGetAllGroups() {
+        Log.d("GET_GROUP_DEBUG", "come in")
+
+
+        db.collection("groups").get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("GET_GROUP_DEBUG", "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("GET_GROUP_DEBUG", "Error getting documents: ", exception)
+            }
+    }
 }
