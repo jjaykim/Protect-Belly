@@ -48,7 +48,11 @@ class EnterCardioExerciseDetailsFragment : Fragment() {
 
         binding.btCardioNext.setOnClickListener {
             if(validateInput()) {
-                (workoutExercise as CardioExercise).heartRateGoal = binding.etHeartRateGoal.text.toString().toInt();
+                if(binding.etHeartRateGoal.text.isNotEmpty()) {
+                    (workoutExercise as CardioExercise).heartRateGoal = binding.etHeartRateGoal.text.toString().toInt();
+                } else {
+                    (workoutExercise as CardioExercise).heartRateGoal = 0;
+                }
                 (workoutExercise as CardioExercise).distanceGoal = binding.etDistanceGoal.text.toString().toInt();
                 (workoutExercise as CardioExercise).timeGoal = binding.etTimeGoal.text.toString().toInt();
                 routine?.workouts?.last()?.workoutExercises?.add(workoutExercise as CardioExercise);

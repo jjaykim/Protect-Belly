@@ -42,6 +42,11 @@ class AddRoutineWorkoutDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentAddRoutineWorkoutDetailsBinding.inflate(inflater, container,false);
 
+        if(workoutIndex == routine?.numOfVariations?.minus(1)) {
+            binding.btNextVariation.text = "Review Routine"
+        }
+
+        binding.tvWorkoutName.text = routine?.workouts!![workoutIndex].workoutName;
         Log.d("ABC", routine.toString());
         var exerciseDetailAdapter = ExerciseDetailsAdapter(binding.root.context, routine?.workouts!![workoutIndex].workoutExercises);
         binding.rvExerciseDetails.adapter = exerciseDetailAdapter;
@@ -54,6 +59,19 @@ class AddRoutineWorkoutDetailsFragment : Fragment() {
             container?.findNavController()?.navigate(action);
         }
 
+        binding.btNextVariation.setOnClickListener {
+            if(workoutIndex == routine?.numOfVariations?.minus(1)){
+                var action = AddRoutineWorkoutDetailsFragmentDirections.actionAddRoutineWorkoutDetailsFragmentToReviewWorkoutRoutineFragment();
+                action.arguments.putSerializable("Routine", routine);
+                action.arguments.putInt("WorkoutIndex", workoutIndex);
+                container?.findNavController()?.navigate(action);
+            } else {
+                var action = AddRoutineWorkoutDetailsFragmentDirections.actionAddRoutineWorkoutDetailsFragmentToSelectExerciseFragment()
+                action.arguments.putSerializable("Routine", routine);
+                action.arguments.putInt("WorkoutIndex", ++workoutIndex);
+                container?.findNavController()?.navigate(action);
+            }
+        }
         // Inflate the layout for this fragment
         return binding.root;
     }

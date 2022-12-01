@@ -148,5 +148,13 @@
         <action
             android:id="@+id/action_addRoutineWorkoutDetailsFragment_to_selectExerciseFragment"
             app:destination="@id/selectExerciseFragment" />
+        <action
+            android:id="@+id/action_addRoutineWorkoutDetailsFragment_to_reviewWorkoutRoutineFragment"
+            app:destination="@id/reviewWorkoutRoutineFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/reviewWorkoutRoutineFragment"
+        android:name="com.example.protectbelly.fragments.workouts.ReviewWorkoutRoutineFragment"
+        android:label="fragment_review_workout_routine"
+        tools:layout="@layout/fragment_review_workout_routine" />
 </navigation>

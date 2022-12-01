@@ -1,6 +1,7 @@
 package com.example.protectbelly.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,10 +64,17 @@ class ExerciseDetailsAdapter: RecyclerView.Adapter<ExerciseDetailsAdapter.Compan
                     itemBinding.tvBottom.text = "Increment Frequency: ${currItem.incrementFrequency}"
                 } else if (currItem is CardioExercise) {
                     itemBinding.tvTopLeft.text = "Time Goal: ${currItem.timeGoal} minutes"
-                    itemBinding.tvTopRight.text = "Distance Goal: ${currItem.distanceGoal} km"
+                    itemBinding.tvTopRight.text = "Distance Goal: ${currItem.distanceGoal} km";
+                    Log.d("ABC", "Heartrate is ${currItem.heartRateGoal}");
                     if(currItem.heartRateGoal != 0) {
+                        Log.d("ABC", "in add heart rate");
                         itemBinding.tvBottomLeft.text = "Heart-rate Goal: ${currItem.heartRateGoal} bpm"
+                    } else {
+                        itemBinding.tvBottomLeft.visibility = View.GONE
                     }
+
+                    itemBinding.tvBottomRight.visibility = View.GONE
+                    itemBinding.tvBottom.visibility = View.GONE
                 }
             }
         }
