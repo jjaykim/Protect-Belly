@@ -42,10 +42,12 @@
 
         <!--User Joined Group Area-->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/createGroupButton"
             app:layout_constraintHorizontal_bias="0.683"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toEndOf="@+id/user_name"
@@ -75,7 +77,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/user_message"
                 tools:ignore="HardcodedText" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/createGroupButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="Create"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--Divider-->
@@ -98,9 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider"
         />
 
-    <!--Displays the Group Navigation button-->
-
-    <!--Recommend the groups when the explore button is clicked-->
+    <!--Displays the Explore Navigation button-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/explore_button_view"
         android:layout_width="match_parent"
@@ -125,7 +137,7 @@
             tools:ignore="HardcodedText" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/explore_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -134,8 +146,9 @@
             tools:ignore="HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--Recommend the groups when the explore button is clicked-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/recommend_view"
+        android:id="@+id/recommend_group_list_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingHorizontal="20dp"
@@ -157,6 +170,7 @@
 
     <!--Joined Group list Area-->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/joined_group_list_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
