@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.protectbelly.auth.FirebaseUIActivity
 import com.example.protectbelly.databinding.ActivityMainBinding
+import com.example.protectbelly.models.Group
 import com.example.protectbelly.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
     private val auth = FirebaseAuth.getInstance();
     companion object{
         lateinit var currentUser:User;
+        lateinit var DB_GROUPS: ArrayList<Group>;
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +36,9 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
         NavigationUI.setupWithNavController(binding.bottomNavigationView,navController);
 
-
-
         initUser();
         initUserData();
+        initGetAllGroups();
 
 //        val navHostFragment = supportFragmentManager.findFragmentById();
 
@@ -74,9 +76,7 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
     private fun initUser() {
 
         currentUser = User()
-        currentUser.name = auth.currentUser?.displayName
-        currentUser.email = auth.currentUser?.email
-        currentUser.phoneNo = auth.currentUser?.phoneNumber
+        DB_GROUPS = ArrayList<Group>()
     }
 
     private fun initUserData() {
@@ -84,7 +84,20 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         db.collection("users").document(auth.currentUser?.uid.toString())
             .get().addOnSuccessListener { document ->
                 if(document.data != null) {
-                    document.data?.map { currentUser}
+
+                    Log.d("ABC", "User Exists: ${document.data}");
+
+                    currentUser.name = document.data!!["name"] as String?
+                    currentUser.email = document.data!!["email"] as String?
+                    currentUser.phoneNo = document.data!!["phoneNumber"] as String?
+                    currentUser.age = document.data!!["age"] as Int?
+                    currentUser.gender = document.data!!["gender"] as String?
+                    currentUser.height = document.data!!["height"] as Int?
+                    currentUser.weight = document.data!!["weight"] as Int?
+                    currentUser.groups = document.data!!["groups"] as ArrayList<String>
+                    currentUser.profilePic = getRandomUserProfile((1..3).random());
+
+                    Log.d("ABC", currentUser.profilePic.toString());
 
                 } else {
                     db.collection("users").document(auth.currentUser?.uid.toString()).set(currentUser);
@@ -96,4 +109,50 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
 
     }
 
+    private fun getRandomUserProfile(randomInt: Int): Int {
+        return when (randomInt) {
+            1 -> R.drawable.ic_default_female_icon;
+            2 -> R.drawable.ic_default_man_icon;
+            3 -> R.drawable.ic_default_young_woman_icon;
+            else -> R.drawable.ic_default_old_man_icon
+        }
+    }
+
+    private fun initGetAllGroups() {
+        db.collection("groups").get()
+            .addOnSuccessListener { result ->
+
+                for (document in result) {
+                    val group:Group = Group();
+
+                    group.documentId = document.id;
+                    group.organizerId = document.data["organizerId"] as String
+                    group.organizerName = document.data["organizerName"] as String
+                    group.title = document.data["title"] as String
+                    group.description = document.data["description"] as String
+                    group.type = document.data["type"] as String
+                    group.createdAt = document.data["createdAt"] as String
+                    group.users = document.data["users"] as ArrayList<String>?
+                    group.location = document.data["location"] as String
+
+                    group.logo = getRandomLogo(document.data["logo"] as Any)
+
+                    DB_GROUPS.add(group)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("GET_GROUP_DEBUG", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun getRandomLogo(logo: Any?): Int {
+        return when (logo) {
+            "ic_swimming_icon" -> R.drawable.ic_swimming_icon;
+            "ic_lifting_icon" -> R.drawable.ic_lifting_icon;
+            "ic_fitness_gym_icon" -> R.drawable.ic_fitness_gym_icon;
+            "ic_running_icon" -> R.drawable.ic_running_icon;
+            "ic_yoga_icon" -> R.drawable.ic_yoga_icon;
+            else -> R.drawable.ic_random_group_logo;
+        }
+    }
 }

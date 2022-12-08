@@ -1,41 +1,124 @@
 package com.example.protectbelly.fragments.social
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.protectbelly.R
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.protectbelly.MainActivity
+import com.example.protectbelly.adapters.GroupListAdapter
+import com.example.protectbelly.databinding.FragmentSocialDetailsBinding
+import com.example.protectbelly.fragments.social.SocialDetailsFragmentDirections.*
+import com.example.protectbelly.models.Group
+import com.example.protectbelly.models.User
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SocialDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SocialDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentSocialDetailsBinding;
+    private lateinit var user: User;
+    private lateinit var groupList: ArrayList<Group>;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_social_details, container, false)
+        user = MainActivity.currentUser;
+        groupList = MainActivity.DB_GROUPS;
+
+        binding = FragmentSocialDetailsBinding.inflate(inflater, container, false);
+
+        binding.userName.text = user.name;
+        binding.userGroupNumber.text = user.groups?.size.toString()
+        binding.userProfile.setImageResource(user.profilePic)
+
+        binding.createGroupButton.setOnClickListener {
+            val action = actionSocialDetailsFragmentToCreateGroupFragment()
+            container?.findNavController()?.navigate(action);
+        }
+
+
+        if (user.groups?.isEmpty() == true) {
+            binding.exploreButtonView.visibility = View.VISIBLE
+            binding.recommendGroupListView.visibility = View.GONE
+            binding.joinedGroupListView.visibility = View.GONE
+            binding.otherGroupListView.visibility = View.GONE
+            binding.recommendButtonView.visibility = View.GONE
+
+            binding.exploreButton.setOnClickListener {
+                binding.exploreButtonView.visibility = View.GONE
+
+                val groupListAdapter = GroupListAdapter(binding.root.context,
+                    groupList
+                );
+
+                binding.recommendGroupListView.visibility = View.VISIBLE
+                binding.recommendGroupList.adapter = groupListAdapter;
+                binding.recommendGroupList.layoutManager = LinearLayoutManager(binding.root.context)
+            }
+
+        } else {
+            binding.exploreButtonView.visibility = View.GONE
+            binding.recommendGroupListView.visibility = View.GONE
+            binding.joinedGroupListView.visibility = View.VISIBLE
+            binding.otherGroupListView.visibility = View.GONE
+            binding.recommendButtonView.visibility = View.VISIBLE
+
+
+            var isRecommendBtnClicked = false;
+            var userGroups: ArrayList<Group> = ArrayList();
+            var recommendGroups: ArrayList<Group> = ArrayList()
+
+            binding.recommendButton.setOnClickListener {
+                isRecommendBtnClicked = !isRecommendBtnClicked
+
+                if (isRecommendBtnClicked) {
+                    binding.recommendButton.text = "Go to the Joined Groups"
+                    binding.joinedGroupListView.visibility = View.GONE
+                    binding.otherGroupListView.visibility = View.VISIBLE
+
+
+                } else {
+                    binding.recommendButton.text = "Go to the Recommended Group"
+                    binding.otherGroupListView.visibility = View.GONE
+                    binding.joinedGroupListView.visibility = View.VISIBLE
+                }
+            }
+
+            // Joined Group
+            user.groups!!.forEach { userGroup ->
+                groupList.forEach {
+                    if (it.documentId == userGroup) {
+                        userGroups.add(it);
+                    }
+                }
+            }
+            val groupListAdapter = GroupListAdapter(binding.root.context,
+                userGroups
+            );
+            binding.joinedGroupList.adapter = groupListAdapter;
+            binding.joinedGroupList.layoutManager = LinearLayoutManager(binding.root.context)
+
+            groupList.forEach {
+                if (!user.groups!!.contains(it.documentId)) {
+                    recommendGroups.add(it)
+                }
+            }
+
+            val recommendGroupListAdapter = GroupListAdapter(binding.root.context,
+                recommendGroups
+            );
+            binding.otherGroupList.adapter = recommendGroupListAdapter
+            binding.otherGroupList.layoutManager = LinearLayoutManager(binding.root.context)
+        }
+
+        return binding.root;
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,25 +127,5 @@ class SocialDetailsFragment : Fragment() {
 //        view.findViewById<Button>(R.id.goToGroupScreen).setOnClickListener {
 //            findNavController().navigate(R.id.action_socialDetailsFragment_to_groupDetailsFragment)
 //        }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SocialDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SocialDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/user_profile_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:padding="20dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        >
+        tools:ignore="MissingConstraints"
+        app:layout_constraintStart_toStartOf="parent">
 
         <!--User Profile-->
         <ImageView
@@ -20,31 +19,40 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_account_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
         <!--User Name-->
         <TextView
             android:id="@+id/user_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Jay Kim"
             android:layout_marginStart="20dp"
+            android:text="Jay Kim"
             android:textColor="#000"
             android:textSize="16sp"
-            android:layout_weight="1"
-            android:weightSum="2"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/user_profile"
+            app:layout_constraintStart_toEndOf="@+id/user_profile"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText" />
 
-        <!--Number of joined group-->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:weightSum="2"
-            >
+        <!--User Joined Group Area-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/createGroupButton"
+            app:layout_constraintHorizontal_bias="0.683"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/user_name"
+            app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:id="@+id/user_message"
                 android:layout_width="wrap_content"
@@ -54,672 +62,199 @@
                 android:textColor="#444"
                 android:textSize="12sp"
                 tools:ignore="HardcodedText" />
+
             <!--Number of Joined group-->
             <TextView
                 android:id="@+id/user_group_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"
                 android:text="0"
                 android:textColor="#444"
                 android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_message"
                 tools:ignore="HardcodedText" />
-        </LinearLayout>
 
-    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/createGroupButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="Create"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--Divider-->
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="?android:attr/listDivider" />
+        android:background="?android:attr/listDivider"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/user_profile_box"/>
 
-    <!--Search-->
-    <SearchView
+    <!--Displays the Explore Navigation button-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/explore_button_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search with names of group and organizer"
-        />
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.388"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        android:visibility="gone">
 
-    <!--Recommend the groups when the user does not join any groups-->
-    <ScrollView
+        <TextView
+            android:id="@+id/user_not_joined_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="Not joining yet"
+            android:textColor="#444"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/explore_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Explore with us"
+            app:layout_constraintTop_toBottomOf="@+id/user_not_joined_group"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Recommend the groups when the explore button is clicked-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recommend_group_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <LinearLayout
+        android:layout_height="0dp"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        tools:ignore="MissingConstraints"
+        android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommend_group_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:ignore="ScrollViewSize">
+            tools:ignore="NotSibling" />
 
-            <!--Displays the Group Navigation button-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingHorizontal="20dp"
-                android:layout_marginTop="50dp"
-                android:gravity="top"
-                tools:ignore="ScrollViewSize"
-                android:visibility="gone"
-                >
-                <TextView
-                    android:id="@+id/user_not_joined_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="Not joining yet"
-                    android:textStyle="bold"
-                    android:textColor="#444"
-                    android:textSize="20sp"
-                    tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <Button
-                    android:id="@+id/button4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="Explore with us"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
-
-            <!--Display the list of Group when the explore button is clicked-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="top"
-                tools:ignore="ScrollViewSize"
-                >
-                <!--Group 1-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
-
-                    <!--Group Image-->
-                    <ImageView
-                        android:id="@+id/not_joined_group_profile1"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_fitness_gym_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
-
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/not_joined_group_name1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yuvraj's Protect Belly Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/not_joined_group_message1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Aug 4, 2022 | Lifting | By Yuvraj"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--Group 2-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
-
-                    <!--Group Image-->
-                    <ImageView
-                        android:id="@+id/not_joined_group_profile2"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_swimming_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
-
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/not_joined_group_name2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sanghwa's Swimming Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/not_joined_group_message2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Aug 20, 2022 | Swimmgin | By Sanghwa"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--Group 3-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
-
-                    <!--Group Image-->
-                    <ImageView
-                        android:id="@+id/not_joined_group_profile3"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_running_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/not_joined_group_name3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Jay's Running Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/not_joined_group_message3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Sep 19, 2022 | Running | By Jay"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--Group 4-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
-
-                    <!--Group Image-->
-                    <ImageView
-                        android:id="@+id/not_joined_group_profile4"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_yoga_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
-
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/not_joined_group_name4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Julia's Yoga Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/not_joined_group_message4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Oct 9, 2022 | Yoga | By Julia"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--Group 5-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
-
-                    <!--Group Image-->
-                    <ImageView
-                        android:id="@+id/not_joined_group_profile5"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_weight_lifting_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
-
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/not_joined_group_name5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="David's Weight Lifting Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/not_joined_group_message5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Aug 20, 2022 | Lifting | By David"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-    <!--Joined Group list-->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recommend_button_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.388"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        >
+
+        <Button
+            android:id="@+id/recommend_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Go to the Recommended Group"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Joined Group list Area-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/joined_group_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recommend_button_view"
         android:visibility="gone"
         >
 
         <!--Group Area-->
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/joined_group_area"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:textStyle="bold"
-            android:textSize="30sp"
+            android:layout_height="wrap_content"
+            android:text="Joined Groups"
             android:textColor="#000"
-            android:layout_marginStart="20dp"
-            android:layout_marginVertical="10dp"
-            android:text="Groups"
-            tools:ignore="HardcodedText" />
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText,MissingConstraints" />
 
-        <!--List of joined groups-->
-        <ScrollView
+        <!--Joined Group list-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/joined_group_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/joined_group_area"
+             />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <!--Group 1-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
+    <!--Other Group list Area-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/other_group_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recommend_button_view"
+        android:visibility="gone">
 
-                    <!--Group Profile-->
-                    <ImageView
-                        android:id="@+id/group_profile1"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_fitness_gym_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
+        <!--Group Area-->
+        <TextView
+            android:id="@+id/other_group_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Might interesting"
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText,MissingConstraints" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
+        <!--Joined Group list-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/other_group_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/other_group_area"
+            />
 
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/group_name1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yuvraj's Protect Belly Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/group_message1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Aug 4, 2022 | Lifting | By Yuvraj"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--Group 2-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
-
-                    <!--Group Profile-->
-                    <ImageView
-                        android:id="@+id/group_profile2"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_swimming_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/group_name2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sanghwa's Swimming Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/group_message2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Aug 20, 2022 | Swimmgin | By Sanghwa"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--Group 3-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
-
-                    <!--Group Profile-->
-                    <ImageView
-                        android:id="@+id/group_profile3"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_running_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
-
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/group_name3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Jay's Running Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/group_message3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Sep 19, 2022 | Running | By Jay"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--Group 4-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
-
-                    <!--Group Profile-->
-                    <ImageView
-                        android:id="@+id/group_profile4"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_yoga_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
-
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/group_name4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Julia's Yoga Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/group_message4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Oct 9, 2022 | Yoga | By Julia"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!--Group 5-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:ignore="UselessParent">
-
-                    <!--Group Profile-->
-                    <ImageView
-                        android:id="@+id/group_profile5"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_weight_lifting_icon"
-                        android:clickable="false"
-                        tools:ignore="ContentDescription" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start"
-                        android:layout_marginStart="20dp"
-                        >
-
-                        <!--Group Name-->
-                        <TextView
-                            android:id="@+id/group_name5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="David's Weight Lifting Crew"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-
-                        <!--Group Details-->
-                        <TextView
-                            android:id="@+id/group_message5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="Aug 20, 2022 | Lifting | By David"
-                            android:textColor="#444"
-                            android:textSize="12sp"
-                            android:layout_marginTop="5dp"
-                            android:clickable="false"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
