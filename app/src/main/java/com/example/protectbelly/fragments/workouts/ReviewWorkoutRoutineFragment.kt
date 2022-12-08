@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.protectbelly.adapters.WorkoutListAdapter
 import com.example.protectbelly.databinding.FragmentReviewWorkoutRoutineBinding
@@ -53,11 +54,16 @@ class ReviewWorkoutRoutineFragment : Fragment() {
         binding.rvWorkoutList.layoutManager = LinearLayoutManager(binding.root.context);
         binding.btSave.setOnClickListener {
             SelectExerciseFragment.exercises.removeAll { true };
-            db.collection("users").document("${auth.currentUser?.uid.toString()}").collection("routines").add(routine as Routine);
+//            var query = db.collection("users").document(auth.currentUser?.uid.toString()).collection("routines").whereEqualTo("isActive" , true).get().result.documents[0]
+            db.collection("users").document(auth.currentUser?.uid.toString()).collection("routines").add(routine as Routine);
+            var action = ReviewWorkoutRoutineFragmentDirections.actionReviewWorkoutRoutineFragmentToWorkoutDashboardFragment();
+            container?.findNavController()?.navigate(action);
         }
 
         binding.btnCancel.setOnClickListener {
             SelectExerciseFragment.exercises.removeAll { true };
+            var action = ReviewWorkoutRoutineFragmentDirections.actionReviewWorkoutRoutineFragmentToWorkoutDashboardFragment();
+            container?.findNavController()?.navigate(action);
         }
 
         // Inflate the layout for this fragment

@@ -45,21 +45,21 @@
         android:id="@+id/btNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="40dp"
         android:text="Next"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spVariations" />
+        app:layout_constraintTop_toBottomOf="@+id/swIsActive" />
 
     <Button
         android:id="@+id/btBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="40dp"
         android:text="Back"
         app:layout_constraintStart_toEndOf="@+id/btNext"
-        app:layout_constraintTop_toBottomOf="@+id/spVariations" />
+        app:layout_constraintTop_toBottomOf="@+id/swIsActive" />
 
     <Spinner
         android:id="@+id/spVariations"
@@ -78,6 +78,16 @@
         android:layout_marginTop="13dp"
         android:visibility="gone"
         android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spVariations" />
+
+    <Switch
+        android:id="@+id/swIsActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Will this routine be your active routine?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spVariations" />

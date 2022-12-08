@@ -156,5 +156,9 @@
         android:id="@+id/reviewWorkoutRoutineFragment"
         android:name="com.example.protectbelly.fragments.workouts.ReviewWorkoutRoutineFragment"
         android:label="fragment_review_workout_routine"
-        tools:layout="@layout/fragment_review_workout_routine" />
+        tools:layout="@layout/fragment_review_workout_routine" >
+        <action
+            android:id="@+id/action_reviewWorkoutRoutineFragment_to_workoutDashboardFragment"
+            app:destination="@id/workoutDashboardFragment" />
+    </fragment>
 </navigation>

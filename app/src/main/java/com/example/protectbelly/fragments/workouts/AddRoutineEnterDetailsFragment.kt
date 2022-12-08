@@ -52,7 +52,8 @@ class AddRoutineEnterDetailsFragment : Fragment() {
         binding.btNext.setOnClickListener {
             if(validateForm()) {
                 routine?.routineName = binding.etRoutineName.text.toString();
-                routine?.numOfVariations = binding.spVariations.selectedItem.toString().toInt()
+                routine?.numOfVariations = binding.spVariations.selectedItem.toString().toInt();
+                routine?.isActive = binding.swIsActive.isActivated;
                 routine?.workouts = ArrayList<Workout>();
                 val action = AddRoutineEnterDetailsFragmentDirections.actionAddRoutineEnterDetailsFragmentToSelectExerciseFragment();
                 action.arguments.putSerializable("Routine", routine)
