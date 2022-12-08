@@ -3,14 +3,16 @@ package com.example.protectbelly.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.protectbelly.databinding.GroupListAdapterBinding
+import com.example.protectbelly.fragments.social.SocialDetailsFragmentDirections
 import com.example.protectbelly.models.Group
 
 class GroupListAdapter: RecyclerView.Adapter<GroupListAdapter.Companion.ItemViewHolder> {
 
     private val context: Context;
-    var joinedGroup: ArrayList<Group>;
+    private var joinedGroup: ArrayList<Group>;
 
     constructor(context: Context, joinedGroup: ArrayList<Group>) {
         this.context = context
@@ -46,6 +48,11 @@ class GroupListAdapter: RecyclerView.Adapter<GroupListAdapter.Companion.ItemView
                 itemBinding.groupName.text = currItem.title
                 itemBinding.groupDetails.text = currItem.createdAt + " | " + currItem.type + " | by " + currItem.organizerName
 
+                itemBinding.groupDetailList.setOnClickListener { view ->
+                    val action = SocialDetailsFragmentDirections.actionSocialDetailsFragmentToGroupDetailsFragment()
+                    action.arguments.putSerializable("Group", currItem)
+                    view.findNavController().navigate(action)
+                }
             }
         }
 

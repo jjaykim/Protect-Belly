@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
     companion object{
         lateinit var currentUser:User;
         lateinit var DB_GROUPS: ArrayList<Group>;
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,8 +93,7 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
                     currentUser.gender = document.data!!["gender"] as String?
                     currentUser.height = document.data!!["height"] as Int?
                     currentUser.weight = document.data!!["weight"] as Int?
-                    currentUser.groups = ArrayList<String>()
-//                    currentUser.groups = document.data!!["groups"] as ArrayList<String>
+                    currentUser.groups = document.data!!["groups"] as ArrayList<String>
                     currentUser.profilePic = getRandomUserProfile((1..3).random());
 
                     Log.d("ABC", currentUser.profilePic.toString());
@@ -147,22 +147,19 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
                     group.type = document.data["type"] as String
                     group.createdAt = document.data["createdAt"] as String
                     group.users = document.data["users"] as ArrayList<String>?
+                    group.location = document.data["location"] as String
 
-                    group.logo = getRandomLogo(document.data["logo"] as String)
+                    group.logo = getRandomLogo(document.data["logo"] as Any)
 
                     DB_GROUPS.add(group)
                 }
-
-                Log.d("GET_GROUP_DEBUG", currentUser.toString())
-
-
             }
             .addOnFailureListener { exception ->
                 Log.d("GET_GROUP_DEBUG", "Error getting documents: ", exception)
             }
     }
 
-    private fun getRandomLogo(logo: String?): Int {
+    private fun getRandomLogo(logo: Any?): Int {
         return when (logo) {
             "ic_swimming_icon" -> R.drawable.ic_swimming_icon;
             "ic_lifting_icon" -> R.drawable.ic_lifting_icon;
