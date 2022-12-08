@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.workouts.CardioStartFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvWorkoutName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+
+            android:text="Running"
+            android:textSize="30dp"
+
+            app:layout_constraintBottom_toTopOf="@id/horizonDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/horizonDivider"
+            android:layout_width="130pt"
+            android:layout_height="1dp"
+
+            android:layout_marginTop="20dp"
+            android:background="?android:attr/listDivider"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWorkoutName" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+
+            android:layout_width="130pt"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+
+            android:orientation="horizontal"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/horizonDivider">
+
+            <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Duration:" />
+
+            <TextView
+                android:id="@+id/tvDurationTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="30:00"
+                android:textColor="@color/purple_200"
+
+                android:textSize="25dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="130pt"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <TextView
+                android:id="@+id/tvTargetDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Target Distance:" />
+
+            <TextView
+                android:id="@+id/tvMiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/purple_200"
+                android:textSize="25dp"
+
+                android:text="5 Miles" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvGoodLuck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="448dp"
+
+            android:text="Good Luck!"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btStart"
+            android:layout_width="100pt"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="100dp"
+            android:text="Start"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvGoodLuck" />
+
+        <Button
+            android:id="@+id/btSkip"
+            android:layout_width="100pt"
+            android:layout_height="wrap_content"
+
+            android:text="Skip"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btStart"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
