@@ -76,6 +76,10 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
     private fun initUser() {
 
         currentUser = User()
+        currentUser.name = auth.currentUser?.displayName
+        currentUser.email = auth.currentUser?.email
+        currentUser.phoneNo = auth.currentUser?.phoneNumber
+        currentUser.groups = ArrayList<String>();
         DB_GROUPS = ArrayList<Group>()
     }
 
