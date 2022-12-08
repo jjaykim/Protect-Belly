@@ -25,4 +25,8 @@ class CardioExercise: WorkoutExercise {
         this.distanceGoal = distanceGoal
         this.heartRateGoal = heartRateGoal
     }
+
+    override fun toString(): String {
+        return "CardioExercise(timeGoal=$timeGoal, distanceGoal=$distanceGoal, heartRateGoal=$heartRateGoal)"
+    }
 }

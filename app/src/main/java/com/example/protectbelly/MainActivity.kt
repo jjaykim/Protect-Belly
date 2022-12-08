@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         db.collection("users").document(auth.currentUser?.uid.toString())
             .get().addOnSuccessListener { document ->
                 if(document.data != null) {
+
                     Log.d("ABC", "User Exists: ${document.data}");
 
                     currentUser.name = document.data!!["name"] as String?
@@ -106,21 +107,6 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
                 Log.d("ABC", "Get failed with", exception);
             };
 
-//        db.collection("users").whereEqualTo("uid", auth.currentUser?.uid.toString())
-//            .get()
-//            .addOnCompleteListener { task ->
-//                if(task.result.documents.size > 0) {
-//                    task.result.documents[0].data?.map { currentUser }
-//                    currentUser.documentId = task.result.documents[0].id
-//                } else {
-//                    db.collection("users").add(currentUser).addOnSuccessListener {
-//                        task ->
-//                        currentUser.documentId = task.id
-//                    }.addOnFailureListener {
-//                        Log.d("ABC", "Failed to add user")
-//                    };
-//                }
-//        }
     }
 
     private fun getRandomUserProfile(randomInt: Int): Int {

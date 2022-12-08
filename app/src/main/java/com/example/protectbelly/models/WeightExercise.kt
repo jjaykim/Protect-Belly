@@ -39,4 +39,8 @@ class WeightExercise: WorkoutExercise {
         this.incrementWeight = incrementWeight
         this.incrementFrequency = incrementFrequency
     }
+
+    override fun toString(): String {
+        return "WeightExercise(sets=$sets, reps=$reps, weight=$weight, incrementWeight=$incrementWeight, incrementFrequency=$incrementFrequency)"
+    }
 }

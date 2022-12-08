@@ -23,6 +23,7 @@ class AccountDetailsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val auth = FirebaseAuth.getInstance();
 
     private lateinit var binding: FragmentAccountDetailsBinding;
 
@@ -41,6 +42,10 @@ class AccountDetailsFragment : Fragment() {
     ): View? {
 
         binding = FragmentAccountDetailsBinding.inflate(inflater, container,false)
+
+        binding.tvFirstName.text = auth.currentUser?.displayName;
+        binding.tvEmailAddress.text = auth.currentUser?.email;
+        binding.tvPhoneNumber.text = auth.currentUser?.phoneNumber;
 
         // Allows navigation between fragments
         binding.btnPersonalAccountDetail.setOnClickListener {

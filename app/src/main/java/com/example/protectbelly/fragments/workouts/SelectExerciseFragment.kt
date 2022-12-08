@@ -33,7 +33,7 @@ class SelectExerciseFragment : Fragment() {
     private var routine: Routine? = null;
     private var workoutIndex: Int = 0;
     private lateinit var binding: FragmentSelectExerciseBinding;
-    private var exercises = ArrayList<Exercise>();
+//    private var exercises = ArrayList<Exercise>();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,49 +50,53 @@ class SelectExerciseFragment : Fragment() {
         binding = FragmentSelectExerciseBinding.inflate(inflater, container, false);
         var api = RetrofitClient.getInstance()?.getApi();
 
-        if(routine?.workouts?.size == 0) {
-            routine?.workouts?.add(Workout("Workout A", ArrayList<WorkoutExercise>()));
+        if(routine?.workouts?.find { workout: Workout -> workout.workoutName.equals("Workout ${(workoutIndex+97).toChar().uppercaseChar()}") } == null) {
+            routine?.workouts?.add(Workout("Workout ${(workoutIndex+97).toChar().uppercaseChar()}", ArrayList<WorkoutExercise>()));
         }
 
-        val request = api?.getAllExercises();
+        if(exercises.isEmpty()) {
+            val request = api?.getAllExercises();
 
-        request?.enqueue(object : Callback<ExerciseResponseObject> {
-            override fun onResponse(
-                call: Call<ExerciseResponseObject?>,
-                response: Response<ExerciseResponseObject?>
-            ) {
-                if (!response.isSuccessful) {
+            request?.enqueue(object : Callback<ExerciseResponseObject> {
+                override fun onResponse(
+                    call: Call<ExerciseResponseObject?>,
+                    response: Response<ExerciseResponseObject?>
+                ) {
+                    if (!response.isSuccessful) {
+                        Log.d(
+                            "ABC",
+                            "Error from API with response code: " + response.code()
+                        )
+                        return
+                    }
+                    val obj: ExerciseResponseObject? = response.body()
+
+                    exercises.addAll(obj?.results!!)
+
+                    var adapter = ArrayAdapter<String>(context as Context, android.R.layout.select_dialog_singlechoice, exercises.map { exercise -> exercise.exerciseName });
+                    binding.actvExerciseName.threshold = 1;
+                    binding.actvExerciseName.setAdapter(adapter);
+
+                }
+
+                override fun onFailure(call: Call<ExerciseResponseObject>, t: Throwable) {
                     Log.d(
                         "ABC",
-                        "Error from API with response code: " + response.code()
+                        t.message!!
                     )
-                    return
                 }
-                val obj: ExerciseResponseObject? = response.body()
-
-                exercises.addAll(obj?.results!!)
-                Log.d("ABC",exercises.map { exercise -> exercise.exerciseName }.toString());
-
-                Log.d("ABC", "Exercises: " + exercises.size)
-                var adapter = ArrayAdapter<String>(context as Context, android.R.layout.select_dialog_singlechoice, exercises.map { exercise -> exercise.exerciseName });
-                binding.actvExerciseName.threshold = 1;
-                binding.actvExerciseName.setAdapter(adapter);
-
-            }
-
-            override fun onFailure(call: Call<ExerciseResponseObject>, t: Throwable) {
-                Log.d(
-                    "ABC",
-                    t.message!!
-                )
-            }
-        })
-
-        binding.btBackRoutineDetails.setOnClickListener {
-            val action = SelectExerciseFragmentDirections.actionSelectExerciseFragmentToAddRoutineEnterDetailsFragment();
-            action.arguments.putSerializable("Routine", routine);
-            container?.findNavController()?.navigate(action);
+            })
+        } else {
+            var adapter = ArrayAdapter<String>(context as Context, android.R.layout.select_dialog_singlechoice, exercises.map { exercise -> exercise.exerciseName });
+            binding.actvExerciseName.threshold = 1;
+            binding.actvExerciseName.setAdapter(adapter);
         }
+//        binding.btBackRoutineDetails.setOnClickListener {
+//            val action = SelectExerciseFragmentDirections.actionSelectExerciseFragmentToAddRoutineEnterDetailsFragment();
+//            action.arguments.putSerializable("Routine", routine);
+//            action.arguments.putSerializable("WorkoutIndex", workoutIndex);
+//            container?.findNavController()?.navigate(action);
+//        }
 
         binding.btNextExerciseDetails.setOnClickListener {
             if(binding.actvExerciseName.text.toString().isNotEmpty()) {
@@ -130,17 +134,17 @@ class SelectExerciseFragment : Fragment() {
                                 addedWorkoutExercise = WeightExercise();
                                 addedWorkoutExercise.name = addedExercise.exerciseName;
                                 action = SelectExerciseFragmentDirections.actionSelectExerciseFragmentToEnterWeighExerciseDetailsFragment()
+                                action.arguments.putBoolean("IsWeightlifting", true);
                             }
 
                             action.arguments.putSerializable("WorkoutExercise", addedWorkoutExercise);
                             action.arguments.putSerializable("Routine", routine);
+                            action.arguments.putInt("WorkoutIndex", workoutIndex);
                             container?.findNavController()?.navigate(action);
 
                         } else {
                             binding.actvExerciseName.error = "Please select a valid exercise"
                         }
-
-
                     }
 
                     override fun onFailure(call: Call<ExerciseResponseObject>, t: Throwable) {
@@ -150,7 +154,6 @@ class SelectExerciseFragment : Fragment() {
             } else {
                 binding.actvExerciseName.error = "Please select a valid exercise"
             }
-
         }
 
         // Inflate the layout for this fragment
@@ -175,5 +178,7 @@ class SelectExerciseFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+        var exercises = ArrayList<Exercise>();
     }
 }

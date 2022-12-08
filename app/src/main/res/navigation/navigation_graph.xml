@@ -115,6 +115,9 @@
         <action
             android:id="@+id/action_enterWeighExerciseDetailsFragment_to_selectExerciseFragment"
             app:destination="@id/selectExerciseFragment" />
+        <action
+            android:id="@+id/action_enterWeighExerciseDetailsFragment_to_addRoutineWorkoutDetailsFragment"
+            app:destination="@id/addRoutineWorkoutDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/enterCardioExerciseDetailsFragment"
@@ -124,6 +127,30 @@
         <action
             android:id="@+id/action_enterCardioExerciseDetailsFragment_to_selectExerciseFragment"
             app:destination="@id/selectExerciseFragment" />
+        <action
+            android:id="@+id/action_enterCardioExerciseDetailsFragment_to_addRoutineWorkoutDetailsFragment"
+            app:destination="@id/addRoutineWorkoutDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRoutineWorkoutDetailsFragment"
+        android:name="com.example.protectbelly.fragments.workouts.AddRoutineWorkoutDetailsFragment"
+        android:label="fragment_add_routine_workout_details"
+        tools:layout="@layout/fragment_add_routine_workout_details" >
+        <action
+            android:id="@+id/action_addRoutineWorkoutDetailsFragment_to_selectExerciseFragment"
+            app:destination="@id/selectExerciseFragment" />
+        <action
+            android:id="@+id/action_addRoutineWorkoutDetailsFragment_to_reviewWorkoutRoutineFragment"
+            app:destination="@id/reviewWorkoutRoutineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewWorkoutRoutineFragment"
+        android:name="com.example.protectbelly.fragments.workouts.ReviewWorkoutRoutineFragment"
+        android:label="fragment_review_workout_routine"
+        tools:layout="@layout/fragment_review_workout_routine" >
+        <action
+            android:id="@+id/action_reviewWorkoutRoutineFragment_to_workoutDashboardFragment"
+            app:destination="@id/workoutDashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/createGroupFragment"

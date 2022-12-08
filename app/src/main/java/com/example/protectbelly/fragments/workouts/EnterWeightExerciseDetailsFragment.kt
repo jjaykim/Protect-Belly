@@ -16,6 +16,8 @@ import com.example.protectbelly.models.WorkoutExercise
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "WorkoutExercise"
 private const val ARG_PARAM2 = "Routine"
+private const val ARG_PARAM3 = "WorkoutIndex"
+private const val ARG_PARAM4 = "IsWeightlifting"
 
 /**
  * A simple [Fragment] subclass.
@@ -26,6 +28,8 @@ class EnterWeightExerciseDetailsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var workoutExercise: WorkoutExercise? = null
     private var routine: Routine? = null
+    private var workoutIndex: Int = 0;
+    private var isWeightlifting: Boolean = false;
     private lateinit var binding: FragmentEnterWeightExerciseDetailsBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +37,8 @@ class EnterWeightExerciseDetailsFragment : Fragment() {
         arguments?.let {
             workoutExercise = it.getSerializable(ARG_PARAM1) as WorkoutExercise?
             routine = it.getSerializable(ARG_PARAM2) as Routine?
+            workoutIndex = it.getInt(ARG_PARAM3);
+            isWeightlifting = it.getBoolean(ARG_PARAM4);
         }
     }
 
@@ -56,12 +62,29 @@ class EnterWeightExerciseDetailsFragment : Fragment() {
         binding.btSelectExercise.setOnClickListener {
             var action = EnterWeightExerciseDetailsFragmentDirections.actionEnterWeighExerciseDetailsFragmentToSelectExerciseFragment();
             action.arguments.putSerializable("Routine", routine);
+            action.arguments.putInt("WorkoutIndex", workoutIndex);
             container?.findNavController()?.navigate(action);
         }
 
         binding.btWorkoutDetails.setOnClickListener {
             if(validateInput()) {
-                routine?.workouts?.last()?.workoutExercises?.add(workoutExercise as WorkoutExercise);
+                if(isWeightlifting) {
+                    (workoutExercise as WeightExercise).reps = binding.etReps.text.toString().toInt();
+                    (workoutExercise as WeightExercise).sets = binding.etSets.text.toString().toInt();
+                    (workoutExercise as WeightExercise).weight = binding.etStartWeight.text.toString().toInt();
+                    (workoutExercise as WeightExercise).incrementWeight = binding.etWeightIncrement.text.toString().toInt();
+                    (workoutExercise as WeightExercise).incrementFrequency = binding.etIncrementFrequency.text.toString().toInt();
+                    routine?.workouts?.last()?.workoutExercises?.add(workoutExercise as WeightExercise);
+                } else {
+                    (workoutExercise as CalisthenicExercise).reps = binding.etReps.text.toString().toInt();
+                    (workoutExercise as CalisthenicExercise).sets = binding.etSets.text.toString().toInt();
+                    routine?.workouts?.last()?.workoutExercises?.add(workoutExercise as CalisthenicExercise);
+                }
+
+                var action = EnterWeightExerciseDetailsFragmentDirections.actionEnterWeighExerciseDetailsFragmentToAddRoutineWorkoutDetailsFragment();
+                action.arguments.putSerializable("Routine", routine);
+                action.arguments.putInt("WorkoutIndex", workoutIndex);
+                container?.findNavController()?.navigate(action);
             }
         }
 
