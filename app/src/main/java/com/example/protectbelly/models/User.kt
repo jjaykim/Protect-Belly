@@ -12,6 +12,9 @@ class User {
     var targetCarbs: Int? = null;
     var targetProtein: Int? = null;
     var targetFat: Int? = null;
+    var groups: ArrayList<String>? = null;
+    var profilePic: Int = 0;
+
 
     constructor() {
 
@@ -28,7 +31,9 @@ class User {
         targetCalories: Int?,
         targetCarbs: Int?,
         targetProtein: Int?,
-        targetFat: Int?
+        targetFat: Int?,
+        groups: ArrayList<String>?,
+        profilePic: Int
     ) {
         this.name = name
         this.email = email
@@ -41,10 +46,12 @@ class User {
         this.targetCarbs = targetCarbs
         this.targetProtein = targetProtein
         this.targetFat = targetFat
+        this.groups = groups
+        this.profilePic = profilePic
     }
 
     override fun toString(): String {
-        return "User(name=$name, email=$email, age=$age, gender=$gender, height=$height, weight=$weight, phoneNo=$phoneNo, targetCalories=$targetCalories, targetCarbs=$targetCarbs, targetProtein=$targetProtein, targetFat=$targetFat)"
+        return "User(name=$name, email=$email, age=$age, gender=$gender, height=$height, weight=$weight, phoneNo=$phoneNo, targetCalories=$targetCalories, targetCarbs=$targetCarbs, targetProtein=$targetProtein, targetFat=$targetFat, groups=${groups.toString()})"
     }
 
 
