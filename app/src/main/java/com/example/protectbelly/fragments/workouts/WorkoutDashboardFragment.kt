@@ -67,15 +67,18 @@ class WorkoutDashboardFragment : Fragment() {
 
         db.collection("users").document(auth.currentUser?.uid.toString()).collection("routines")
             .get().addOnSuccessListener { result ->
-                if(result.documents[0].data != null) {
+                if(!result.isEmpty) {
                     var dbRoutine = result.documents[0].toObject(DBRoutine::class.java)!!;
                     routine.convertDBObject(dbRoutine);
 
                     Log.d("ABC", "DB Routine: $dbRoutine");
 
                     Log.d("ABC", "Routine: $routine")
-                    populatePage(container);
+
                 }
+                Log.d("ABC", "Routine: $routine")
+                populatePage(container);
+
             }
             .addOnFailureListener { exception ->
                 Log.d("ABC", "Get failed with ", exception);
@@ -88,7 +91,7 @@ class WorkoutDashboardFragment : Fragment() {
     }
 
     private fun populatePage(container: ViewGroup?) {
-        if(routine.routineName.toString() == null) {
+        if(routine.routineName == null) {
             binding.tvEmpty.visibility = View.VISIBLE;
             binding.btAddRoutine.visibility = View.VISIBLE;
             binding.btEdit.visibility = View.GONE;

@@ -36,16 +36,6 @@
             app:destination="@id/accountDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/calendarDetailsFragment"
-        android:name="com.example.protectbelly.fragments.calendar.CalendarDetailsFragment"
-        android:label="fragment_calendar_details"
-        tools:layout="@layout/fragment_calendar_details" />
-    <fragment
-        android:id="@+id/diaryDetailsFragment"
-        android:name="com.example.protectbelly.fragments.diary.DiaryDetailsFragment"
-        android:label="fragment_diary_details"
-        tools:layout="@layout/fragment_diary_details" />
-    <fragment
         android:id="@+id/groupDetailsFragment"
         android:name="com.example.protectbelly.fragments.social.group.GroupDetailsFragment"
         android:label="fragment_group_details"
