@@ -63,10 +63,8 @@
                 android:id="@+id/tvDurationTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="30:00"
+                android:text="                        30:00"
                 android:textColor="@color/purple_200"
-
                 android:textSize="25dp" />
 
         </LinearLayout>
@@ -95,7 +93,7 @@
                 android:textColor="@color/purple_200"
                 android:textSize="25dp"
 
-                android:text="5 Miles" />
+                android:text="               5 Miles" />
 
         </LinearLayout>
 
