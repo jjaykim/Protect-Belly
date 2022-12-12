@@ -43,15 +43,11 @@ class AccountDetailsFragment : Fragment() {
 
         binding = FragmentAccountDetailsBinding.inflate(inflater, container,false)
 
-        binding.tvFirstName.text = auth.currentUser?.displayName;
+        binding.tvUserName.text = auth.currentUser?.displayName;
         binding.tvEmailAddress.text = auth.currentUser?.email;
         binding.tvPhoneNumber.text = auth.currentUser?.phoneNumber;
 
         // Allows navigation between fragments
-        binding.btnPersonalAccountDetail.setOnClickListener {
-            val action = AccountDetailsFragmentDirections.actionAccountDetailsFragmentToPersonalAccountDetailsFragment();
-            container?.findNavController()?.navigate(action);
-        }
 
         binding.btnEdit.setOnClickListener {
             val action = AccountDetailsFragmentDirections.actionAccountDetailsFragmentToEditAccountDetailsFragment();
