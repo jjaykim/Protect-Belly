@@ -1,16 +1,21 @@
 package com.example.protectbelly.fragments.workouts
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.protectbelly.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
+import com.example.protectbelly.databinding.FragmentWorkoutSetRoutineBinding
+import com.example.protectbelly.models.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM1 = "Workout"
+private const val ARG_PARAM2 = "WorkoutExerciseIndex"
+private const val ARG_PARAM3 = "Set"
+private const val ARG_PARAM4 = "HasFailed"
 
 /**
  * A simple [Fragment] subclass.
@@ -19,14 +24,20 @@ private const val ARG_PARAM2 = "param2"
  */
 class WorkoutSetRoutineFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var workout: Workout? = null
+    private var workoutExercise: WorkoutExercise? = null
+    private var workoutIndex = 0;
+    private var set: Int = 1;
+    private var hasFailed = false;
+    private lateinit var binding: FragmentWorkoutSetRoutineBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            workout = it.getSerializable(ARG_PARAM1) as Workout
+            workoutIndex = it.getInt(ARG_PARAM2)
+            set = it.getInt(ARG_PARAM3)
+            hasFailed = it.getBoolean(ARG_PARAM4)
         }
     }
 
@@ -34,8 +45,60 @@ class WorkoutSetRoutineFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        workoutExercise = workout?.workoutExercises?.get(workoutIndex);
+        binding = FragmentWorkoutSetRoutineBinding.inflate(inflater, container, false);
+        binding.tvWorkoutName.text = workoutExercise?.name;
+
+        binding.tvSetsComplete.text = set.toString();
+
+
+        if(workoutExercise is WeightExercise) {
+            binding.tvExerciseWeight.text = (workoutExercise as WeightExercise)?.weight.toString();
+            binding.tvWeightReps.text = (workoutExercise as WeightExercise)?.reps.toString();
+            binding.tvAllSets.text = "out of ${(workoutExercise as WeightExercise).sets}"
+        } else {
+            binding.tvWeightReps.text = (workoutExercise as CalisthenicExercise)?.reps.toString();
+            binding.tvAllSets.text = "out of ${(workoutExercise as CalisthenicExercise).sets}"
+        }
+
+        binding.btComplete.setOnClickListener {
+            changePage();
+        }
+
+        binding.btFailed.setOnClickListener {
+            hasFailed = true;
+            changePage();
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_workout_set_routine, container, false)
+        return binding.root;
+    }
+
+    private fun changePage() {
+        lateinit var action: NavDirections;
+        if( (workoutExercise is CalisthenicExercise &&  set == (workoutExercise as CalisthenicExercise).sets) || (workoutExercise is WeightExercise && set == (workoutExercise as WeightExercise).sets)) {
+
+            if(workoutIndex == workout!!.workoutExercises.size - 1) {
+                action = WorkoutSetRoutineFragmentDirections.actionWorkoutSetRoutineFragmentToWorkoutDashboardFragment()
+                action.arguments.putBoolean("WorkoutComplete", true)
+            }
+            else if(workout!!.workoutExercises[workoutIndex+1] is CardioExercise) {
+                action = WorkoutSetRoutineFragmentDirections.actionWorkoutSetRoutineFragmentToCardioStartFragment()
+            } else {
+                action = WorkoutSetRoutineFragmentDirections.actionWorkoutSetRoutineFragmentSelf()
+            }
+            set = 1;
+            workoutIndex++
+            hasFailed = false
+
+        } else {
+            action = WorkoutSetRoutineFragmentDirections.actionWorkoutSetRoutineFragmentToBreakTimer()
+            set++;
+        }
+        action.arguments.putSerializable("Workout", workout);
+        action.arguments.putInt("WorkoutExerciseIndex", workoutIndex);
+        action.arguments.putInt("Set", set);
+        action.arguments.putBoolean("HasFailed", hasFailed);
+        binding.root.findNavController().navigate(action);
     }
 
     companion object {

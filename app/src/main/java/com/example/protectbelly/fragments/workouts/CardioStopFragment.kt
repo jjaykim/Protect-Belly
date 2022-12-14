@@ -1,16 +1,21 @@
 package com.example.protectbelly.fragments.workouts
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.protectbelly.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.example.protectbelly.databinding.FragmentCardioStopBinding
+import com.example.protectbelly.models.Workout
+import com.example.protectbelly.models.WorkoutExercise
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM1 = "Workout"
+private const val ARG_PARAM2 = "WorkoutExerciseIndex"
+private const val ARG_PARAM3 = "HasFailed"
+private const val ARG_PARAM4 = "TimeRan"
 
 /**
  * A simple [Fragment] subclass.
@@ -19,14 +24,20 @@ private const val ARG_PARAM2 = "param2"
  */
 class CardioStopFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var workout: Workout? = null
+    private var workoutExercise: WorkoutExercise? = null
+    private var workoutIndex = 0
+    private var hasFailed = false
+    private var timeRan = 0;
+    private lateinit var binding: FragmentCardioStopBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            workout = it.getSerializable(ARG_PARAM1) as Workout
+            workoutIndex = it.getInt(ARG_PARAM2)
+            hasFailed = it.getBoolean(ARG_PARAM3)
+            timeRan = it.getInt(ARG_PARAM4)
         }
     }
 
@@ -34,9 +45,47 @@ class CardioStopFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentCardioStopBinding.inflate(inflater, container, false);
+
+        binding.tvTime.text = convertIntToTime(timeRan);
+
+        binding.ivResumeCardio.setOnClickListener {
+            val action = CardioStopFragmentDirections.actionCardioStopFragmentToCardioInProgress()
+            action.arguments.putSerializable("Workout", workout);
+            action.arguments.putInt("WorkoutExerciseIndex", workoutIndex);
+            action.arguments.putBoolean("HasFailed", hasFailed);
+            action.arguments.putInt("TimeRan", timeRan);
+            binding.root.findNavController().navigate(action);
+        }
+
+        binding.ivStopCardio.setOnClickListener {
+
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cardio_stop, container, false)
+        return binding.root;
     }
+
+    private fun convertIntToTime(time: Int): String {
+        var minutes = "0";
+        var seconds = "";
+        if(time >= 60) {
+            minutes = (time / 60).toString();
+            seconds = if(time%60 < 10) {
+                "0${time%60}"
+            } else {
+                (time%60).toString();
+            }
+        } else {
+            seconds = if(time < 10) {
+                "0${time}"
+            } else {
+                time.toString();
+            }
+
+        }
+        return "$minutes:$seconds";
+     }
 
     companion object {
         /**

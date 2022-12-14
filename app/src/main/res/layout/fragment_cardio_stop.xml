@@ -11,42 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progressBar3"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="236dp"
-            android:layout_height="229dp"
-            android:layout_marginBottom="60dp"
-            android:progressTint="@color/purple_200"
-            app:layout_constraintBottom_toTopOf="@+id/tv_Time"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_MilesCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="88dp"
-            android:text="3.72"
-            android:textColor="@color/purple_200"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/progressBar3"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="@+id/progressBar3"
-            app:layout_constraintTop_toTopOf="@+id/progressBar3" />
-
-        <TextView
-            android:id="@+id/tv_Miles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Miles"
-            android:textColor="@color/purple_200"
-            android:textSize="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/progressBar3"
-            app:layout_constraintStart_toStartOf="@+id/progressBar3"
-            app:layout_constraintTop_toBottomOf="@+id/tv_MilesCount" />
 
         <TextView
             android:id="@+id/tv_Time"
@@ -64,16 +28,17 @@
             android:id="@+id/tv_Time_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="188dp"
+            android:layout_marginBottom="328dp"
             android:text="Time"
             android:textColor="@color/purple_200"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/ivResumeCardio"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginEnd="108dp"
@@ -82,10 +47,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.566"
-            app:layout_constraintStart_toEndOf="@+id/imageView10" />
+            app:layout_constraintStart_toEndOf="@+id/ivStopCardio" />
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/ivStopCardio"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginBottom="76dp"

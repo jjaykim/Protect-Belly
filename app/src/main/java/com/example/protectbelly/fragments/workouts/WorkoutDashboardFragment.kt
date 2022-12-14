@@ -21,7 +21,7 @@ import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "WorkoutComplete"
 private const val ARG_PARAM2 = "param2"
 
 /**
@@ -31,7 +31,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class WorkoutDashboardFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var workoutComplete = false
     private var param2: String? = null
     private val db = Firebase.firestore;
     private var routine: Routine = Routine();
@@ -40,7 +40,7 @@ class WorkoutDashboardFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            workoutComplete = it.getBoolean(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -70,13 +70,7 @@ class WorkoutDashboardFragment : Fragment() {
                 if(!result.isEmpty) {
                     var dbRoutine = result.documents[0].toObject(DBRoutine::class.java)!!;
                     routine.convertDBObject(dbRoutine);
-
-                    Log.d("ABC", "DB Routine: $dbRoutine");
-
-                    Log.d("ABC", "Routine: $routine")
-
                 }
-                Log.d("ABC", "Routine: $routine")
                 populatePage(container);
 
             }
@@ -106,11 +100,17 @@ class WorkoutDashboardFragment : Fragment() {
             binding.btEdit.visibility = View.VISIBLE;
             binding.rvWorkoutList.visibility = View.VISIBLE;
             var workoutListAdapter = WorkoutListAdapter(binding.root.context,
-                routine.workouts
+                routine.workouts, true
             );
             binding.rvWorkoutList.adapter = workoutListAdapter;
             binding.rvWorkoutList.layoutManager = LinearLayoutManager(binding.root.context);
+
         }
+    }
+
+    private fun onItemClicked() {
+        val action = WorkoutDashboardFragmentDirections.actionWorkoutDashboardFragmentToStartWorkoutFragment()
+        binding.root.findNavController()?.navigate(action)
     }
 
     companion object {

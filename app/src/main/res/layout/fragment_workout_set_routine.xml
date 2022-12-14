@@ -55,7 +55,7 @@
             app:layout_constraintTop_toTopOf="@+id/horizonDivider">
 
             <TextView
-                android:id="@+id/tvDurationTime"
+                android:id="@+id/tvWeightReps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
@@ -70,11 +70,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Raps" />
+                android:text="Reps" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -85,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <TextView
-                android:id="@+id/tvMiles"
+                android:id="@+id/tvExerciseWeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
@@ -103,6 +104,31 @@
                 android:text="lbs" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvSetsComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="18dp"
+
+            android:text="sets"
+            android:textColor="@color/purple_200"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llWeight" />
+
+        <TextView
+            android:id="@+id/tvAllSets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:text="out of sets"
+            app:layout_constraintStart_toEndOf="@+id/tvSetsComplete"
+            app:layout_constraintTop_toBottomOf="@+id/llWeight" />
 
         <Button
             android:id="@+id/btComplete"
@@ -127,56 +153,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="42dp"
-            android:layout_height="35dp"
-            android:layout_marginBottom="36dp"
-            android:src="@drawable/ic_baseline_check_circle_outline_24"
-            app:layout_constraintBottom_toTopOf="@+id/btComplete"
-            app:layout_constraintEnd_toStartOf="@+id/imageView5"
-            app:layout_constraintHorizontal_bias="0.625"
-            app:layout_constraintStart_toEndOf="@+id/imageView2" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="43dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="36dp"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            app:layout_constraintBottom_toTopOf="@+id/btComplete"
-            app:layout_constraintStart_toEndOf="@+id/imageView" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="42dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="36dp"
-            android:src="@drawable/ic_baseline_check_circle_outline_24"
-            app:layout_constraintBottom_toTopOf="@+id/btComplete"
-            app:layout_constraintEnd_toStartOf="@+id/imageView6" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="42dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="76dp"
-            android:layout_marginBottom="36dp"
-            android:src="@drawable/ic_baseline_check_circle_outline_24"
-            app:layout_constraintBottom_toTopOf="@+id/btComplete"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="43dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="92dp"
-            android:layout_marginBottom="36dp"
-            android:src="@drawable/ic_baseline_check_circle_24"
-            app:layout_constraintBottom_toTopOf="@+id/btComplete"
-            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

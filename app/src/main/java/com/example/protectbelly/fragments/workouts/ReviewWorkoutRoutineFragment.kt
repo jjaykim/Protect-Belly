@@ -48,7 +48,8 @@ class ReviewWorkoutRoutineFragment : Fragment() {
         binding = FragmentReviewWorkoutRoutineBinding.inflate(inflater,container,false);
         binding.tvRoutineName2.text = routine?.routineName;
         var workoutListAdapter = WorkoutListAdapter(binding.root.context,
-            routine?.workouts as ArrayList<Workout>
+            routine?.workouts as ArrayList<Workout>,
+            false
         );
         binding.rvWorkoutList.adapter = workoutListAdapter;
         binding.rvWorkoutList.layoutManager = LinearLayoutManager(binding.root.context);

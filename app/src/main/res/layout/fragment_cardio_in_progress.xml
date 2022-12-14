@@ -13,11 +13,11 @@
         android:backgroundTint="#D2300CF4">
 
         <TextView
-            android:id="@+id/text_MilesCount"
+            android:id="@+id/tvTimeRan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="140dp"
-            android:text="3.72"
+            android:text="0:00"
             android:textColor="@color/white"
             android:textSize="100dp"
             android:textStyle="bold"
@@ -25,18 +25,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_Miles"
-            android:layout_width="34dp"
-            android:layout_height="15dp"
-            android:text="Miles"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_MilesCount" />
-
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/ivStop"
             android:layout_width="67dp"
             android:layout_height="65dp"
             android:layout_marginBottom="132dp"
