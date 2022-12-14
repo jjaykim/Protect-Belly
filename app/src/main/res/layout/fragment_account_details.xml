@@ -35,8 +35,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_image"
-                android:layout_width="265dp"
-                android:layout_height="89dp"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="68dp"
                 android:textColorHint="#808080"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +46,11 @@
                 app:layout_constraintWidth_percent="0.7">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="165dp" />
+                    android:id="@+id/userProfileAccountPage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_account_icon"
+                    tools:ignore="ContentDescription" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
