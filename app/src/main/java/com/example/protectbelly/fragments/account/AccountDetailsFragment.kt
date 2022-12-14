@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.protectbelly.MainActivity
 import com.example.protectbelly.databinding.FragmentAccountDetailsBinding
+import com.example.protectbelly.models.User
 import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,7 +26,7 @@ class AccountDetailsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val auth = FirebaseAuth.getInstance();
-
+    private lateinit var user: User;
     private lateinit var binding: FragmentAccountDetailsBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,19 +42,16 @@ class AccountDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        user = MainActivity.currentUser;
 
         binding = FragmentAccountDetailsBinding.inflate(inflater, container,false)
 
-        binding.tvFirstName.text = auth.currentUser?.displayName;
+        binding.tvUserName.text = auth.currentUser?.displayName;
         binding.tvEmailAddress.text = auth.currentUser?.email;
         binding.tvPhoneNumber.text = auth.currentUser?.phoneNumber;
+        binding.userProfileAccountPage.setImageResource(user.profilePic)
 
         // Allows navigation between fragments
-        binding.btnPersonalAccountDetail.setOnClickListener {
-            val action = AccountDetailsFragmentDirections.actionAccountDetailsFragmentToPersonalAccountDetailsFragment();
-            container?.findNavController()?.navigate(action);
-        }
-
         binding.btnEdit.setOnClickListener {
             val action = AccountDetailsFragmentDirections.actionAccountDetailsFragmentToEditAccountDetailsFragment();
             container?.findNavController()?.navigate(action);
