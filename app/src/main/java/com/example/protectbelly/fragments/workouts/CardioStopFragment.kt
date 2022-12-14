@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.example.protectbelly.databinding.FragmentCardioStopBinding
+import com.example.protectbelly.models.CardioExercise
 import com.example.protectbelly.models.Workout
 import com.example.protectbelly.models.WorkoutExercise
 
@@ -59,11 +61,32 @@ class CardioStopFragment : Fragment() {
         }
 
         binding.ivStopCardio.setOnClickListener {
-
+            changePage()
         }
 
         // Inflate the layout for this fragment
         return binding.root;
+    }
+
+    private fun changePage() {
+        lateinit var action: NavDirections;
+
+        if(workoutIndex == workout!!.workoutExercises.size - 1) {
+            action = CardioStopFragmentDirections.actionCardioStopFragmentToWorkoutDashboardFragment()
+            action.arguments.putBoolean("WorkoutComplete", true)
+        }
+        else if(workout!!.workoutExercises[workoutIndex+1] is CardioExercise) {
+            action = CardioStopFragmentDirections.actionCardioStopFragmentToCardioStartFragment()
+        } else {
+            action = CardioStopFragmentDirections.actionCardioStopFragmentToWorkoutSetRoutineFragment()
+        }
+        workoutIndex++
+        hasFailed = false
+
+        action.arguments.putSerializable("Workout", workout);
+        action.arguments.putInt("WorkoutExerciseIndex", workoutIndex);
+        action.arguments.putBoolean("HasFailed", hasFailed);
+        binding.root.findNavController().navigate(action);
     }
 
     private fun convertIntToTime(time: Int): String {

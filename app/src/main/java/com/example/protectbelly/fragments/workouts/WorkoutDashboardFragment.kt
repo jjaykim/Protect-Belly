@@ -79,7 +79,10 @@ class WorkoutDashboardFragment : Fragment() {
             };
 
 
-
+//        if(workoutComplete) {
+//            Log.d("ABC", binding.toString())
+//            Snackbar.make(binding.root, "Workout Complete", Snackbar.LENGTH_SHORT).show();
+//        }
         // Inflate the layout for this fragment
         return binding.root;
     }
