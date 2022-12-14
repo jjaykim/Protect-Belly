@@ -1,16 +1,22 @@
 package com.example.protectbelly.fragments.workouts
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.protectbelly.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
+import com.example.protectbelly.databinding.FragmentCardioStartBinding
+import com.example.protectbelly.models.CardioExercise
+import com.example.protectbelly.models.Workout
+import com.example.protectbelly.models.WorkoutExercise
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM1 = "Workout"
+private const val ARG_PARAM2 = "WorkoutExerciseIndex"
+private const val ARG_PARAM3 = "HasFailed"
 
 /**
  * A simple [Fragment] subclass.
@@ -19,14 +25,18 @@ private const val ARG_PARAM2 = "param2"
  */
 class CardioStartFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var workout: Workout? = null
+    private var workoutExercise: WorkoutExercise? = null
+    private var workoutIndex = 0
+    private var hasFailed = false
+    private lateinit var binding: FragmentCardioStartBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            workout = it.getSerializable(ARG_PARAM1) as Workout
+            workoutIndex = it.getInt(ARG_PARAM2)
+            hasFailed = it.getBoolean(ARG_PARAM3)
         }
     }
 
@@ -34,8 +44,39 @@ class CardioStartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentCardioStartBinding.inflate(inflater, container, false);
+        workoutExercise = workout!!.workoutExercises[workoutIndex];
+
+        binding.tvWorkoutName.text = (workoutExercise as CardioExercise).name
+        binding.tvWeightReps.text = (workoutExercise as CardioExercise).timeGoal.toString()
+        binding.tvExerciseWeight.text = (workoutExercise as CardioExercise).distanceGoal.toString()
+
+        binding.btStart.setOnClickListener {
+            val action = CardioStartFragmentDirections.actionCardioStartFragmentToCardioInProgress()
+            action.arguments.putSerializable("Workout", workout);
+            action.arguments.putInt("WorkoutExerciseIndex", workoutIndex);
+            action.arguments.putBoolean("HasFailed", hasFailed);
+            binding.root.findNavController().navigate(action);
+        }
+
+        binding.btSkip.setOnClickListener {
+            lateinit var action: NavDirections;
+            if(workoutIndex == workout!!.workoutExercises.size - 1) {
+                action = CardioStartFragmentDirections.actionCardioStartFragmentToWorkoutDashboardFragment()
+                action.arguments.putBoolean("WorkoutComplete", true);
+            } else if(workout!!.workoutExercises[workoutIndex +1] is CardioExercise) {
+                action = CardioStartFragmentDirections.actionCardioStartFragmentSelf2()
+
+            } else {
+                action = CardioStartFragmentDirections.actionCardioStartFragmentToWorkoutSetRoutineFragment()
+            }
+            action.arguments.putSerializable("Workout", workout);
+            action.arguments.putInt("WorkoutExerciseIndex", ++workoutIndex);
+            action.arguments.putBoolean("HasFailed", hasFailed);
+            binding.root.findNavController().navigate(action);
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cardio_start, container, false)
+        return binding.root;
     }
 
     companion object {

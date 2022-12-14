@@ -1,16 +1,22 @@
 package com.example.protectbelly.fragments.workouts
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.protectbelly.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.example.protectbelly.databinding.FragmentCardioInProgressBinding
+import com.example.protectbelly.models.Workout
+import com.example.protectbelly.models.WorkoutExercise
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM1 = "Workout"
+private const val ARG_PARAM2 = "WorkoutExerciseIndex"
+private const val ARG_PARAM3 = "HasFailed"
+private const val ARG_PARAM4 = "TimeRan"
 
 /**
  * A simple [Fragment] subclass.
@@ -19,14 +25,20 @@ private const val ARG_PARAM2 = "param2"
  */
 class CardioInProgress : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var workout: Workout? = null
+    private var workoutExercise: WorkoutExercise? = null
+    private var workoutIndex = 0
+    private var hasFailed = false
+    private var timeRan = 0;
+    private lateinit var binding: FragmentCardioInProgressBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            workout = it.getSerializable(ARG_PARAM1) as Workout
+            workoutIndex = it.getInt(ARG_PARAM2)
+            hasFailed = it.getBoolean(ARG_PARAM3)
+            timeRan = it.getInt(ARG_PARAM4)
         }
     }
 
@@ -34,8 +46,55 @@ class CardioInProgress : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentCardioInProgressBinding.inflate(inflater, container, false);
+
+        startTimer();
+
+        binding.ivStop.setOnClickListener {
+            val action = CardioInProgressDirections.actionCardioInProgressToCardioStopFragment()
+            action.arguments.putSerializable("Workout", workout);
+            action.arguments.putInt("WorkoutExerciseIndex", workoutIndex);
+            action.arguments.putBoolean("HasFailed", hasFailed);
+            action.arguments.putInt("TimeRan", timeRan);
+            binding.root.findNavController().navigate(action);
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cardio_in_progress, container, false)
+        return binding.root;
+    }
+
+    private fun startTimer() {
+
+        val handler = Handler()
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                // set the limitations for the numeric
+                // text under the progress bar
+                if (true) {
+                    var minutes = "0";
+                    var seconds = "";
+                    if(timeRan >= 60) {
+                        minutes = (timeRan / 60).toString();
+                        seconds = if(timeRan%60 < 10) {
+                            "0${timeRan%60}"
+                        } else {
+                            (timeRan%60).toString();
+                        }
+                    } else {
+                        seconds = if(timeRan < 10) {
+                            "0${timeRan}"
+                        } else {
+                            timeRan.toString();
+                        }
+
+                    }
+                    binding.tvTimeRan.text = "$minutes:$seconds"
+                    timeRan++
+                    handler.postDelayed(this, 1000)
+                } else {
+                    handler.removeCallbacks(this)
+                }
+            }
+        }, 1000)
     }
 
     companion object {

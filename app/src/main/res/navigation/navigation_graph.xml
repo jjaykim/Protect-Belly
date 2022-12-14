@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_workoutDashboardFragment_to_addRoutineUseTemplateFragment"
             app:destination="@id/addRoutineUseTemplateFragment" />
+        <action
+            android:id="@+id/action_workoutDashboardFragment_to_startWorkoutFragment"
+            app:destination="@id/startWorkoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountDetailsFragment"
@@ -150,5 +153,98 @@
         <action
             android:id="@+id/action_createGroupFragment_to_socialDetailsFragment"
             app:destination="@id/socialDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startWorkoutFragment"
+        android:name="com.example.protectbelly.fragments.workouts.StartWorkoutFragment"
+        android:label="fragment_start_workout"
+        tools:layout="@layout/fragment_start_workout" >
+        <action
+            android:id="@+id/action_startWorkoutFragment_to_workoutDashboardFragment"
+            app:destination="@id/workoutDashboardFragment" />
+        <action
+            android:id="@+id/action_startWorkoutFragment_to_cardioStartFragment"
+            app:destination="@id/cardioStartFragment" />
+        <action
+            android:id="@+id/action_startWorkoutFragment_to_workoutSetRoutineFragment"
+            app:destination="@id/workoutSetRoutineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardioStartFragment"
+        android:name="com.example.protectbelly.fragments.workouts.CardioStartFragment"
+        android:label="fragment_cardio_start"
+        tools:layout="@layout/fragment_cardio_start" >
+        <action
+            android:id="@+id/action_cardioStartFragment_to_workoutSetRoutineFragment"
+            app:destination="@id/workoutSetRoutineFragment" />
+        <action
+            android:id="@+id/action_cardioStartFragment_to_cardioInProgress"
+            app:destination="@id/cardioInProgress" />
+        <action
+            android:id="@+id/action_cardioStartFragment_self2"
+            app:destination="@id/cardioStartFragment" />
+        <action
+            android:id="@+id/action_cardioStartFragment_to_workoutSetRoutineFragment2"
+            app:destination="@id/workoutSetRoutineFragment" />
+        <action
+            android:id="@+id/action_cardioStartFragment_to_workoutDashboardFragment"
+            app:destination="@id/workoutDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workoutSetRoutineFragment"
+        android:name="com.example.protectbelly.fragments.workouts.WorkoutSetRoutineFragment"
+        android:label="fragment_workout_set_routine"
+        tools:layout="@layout/fragment_workout_set_routine" >
+        <action
+            android:id="@+id/action_workoutSetRoutineFragment_to_breakTimer"
+            app:destination="@id/breakTimer" />
+        <action
+            android:id="@+id/action_workoutSetRoutineFragment_to_cardioStartFragment"
+            app:destination="@id/cardioStartFragment" />
+        <action
+            android:id="@+id/action_workoutSetRoutineFragment_self"
+            app:destination="@id/workoutSetRoutineFragment" />
+        <action
+            android:id="@+id/action_workoutSetRoutineFragment_to_workoutDashboardFragment"
+            app:destination="@id/workoutDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/breakTimer"
+        android:name="com.example.protectbelly.fragments.workouts.BreakTimer"
+        android:label="fragment_break_timer"
+        tools:layout="@layout/fragment_break_timer" >
+        <action
+            android:id="@+id/action_breakTimer_to_workoutSetRoutineFragment2"
+            app:destination="@id/workoutSetRoutineFragment" />
+        <action
+            android:id="@+id/action_breakTimer_to_workoutDashboardFragment"
+            app:destination="@id/workoutDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardioInProgress"
+        android:name="com.example.protectbelly.fragments.workouts.CardioInProgress"
+        android:label="fragment_cardio_in_progress"
+        tools:layout="@layout/fragment_cardio_in_progress" >
+        <action
+            android:id="@+id/action_cardioInProgress_to_cardioStopFragment"
+            app:destination="@id/cardioStopFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardioStopFragment"
+        android:name="com.example.protectbelly.fragments.workouts.CardioStopFragment"
+        android:label="fragment_cardio_stop"
+        tools:layout="@layout/fragment_cardio_stop" >
+        <action
+            android:id="@+id/action_cardioStopFragment_to_cardioStartFragment"
+            app:destination="@id/cardioStartFragment" />
+        <action
+            android:id="@+id/action_cardioStopFragment_to_workoutSetRoutineFragment"
+            app:destination="@id/workoutSetRoutineFragment" />
+        <action
+            android:id="@+id/action_cardioStopFragment_to_cardioInProgress"
+            app:destination="@id/cardioInProgress" />
+        <action
+            android:id="@+id/action_cardioStopFragment_to_workoutDashboardFragment"
+            app:destination="@id/workoutDashboardFragment" />
     </fragment>
 </navigation>

@@ -60,7 +60,7 @@
                 android:text="Duration:" />
 
             <TextView
-                android:id="@+id/tvDurationTime"
+                android:id="@+id/tvWeightReps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="                        30:00"
@@ -86,7 +86,7 @@
                 android:text="Target Distance:" />
 
             <TextView
-                android:id="@+id/tvMiles"
+                android:id="@+id/tvExerciseWeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -102,11 +102,12 @@
             android:id="@+id/tvGoodLuck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="448dp"
+            android:layout_marginTop="268dp"
 
             android:text="Good Luck!"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
