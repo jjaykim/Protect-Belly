@@ -38,6 +38,7 @@ class FirebaseUIActivity : AppCompatActivity() {
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
+            .setLogo(R.drawable.protect_belly_logo)
             .setTheme(R.style.Theme_ProtectBelly)
             .build()
         signInLauncher.launch(signInIntent)
