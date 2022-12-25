@@ -4,67 +4,87 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.protectbelly.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.protectbelly.MainActivity
+import com.example.protectbelly.adapters.GroupListAdapter
+import com.example.protectbelly.databinding.FragmentSocialDetailsBinding
+import com.example.protectbelly.models.Group
+import com.example.protectbelly.models.User
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SocialDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SocialDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val db = Firebase.firestore;
+    private lateinit var binding: FragmentSocialDetailsBinding;
+    private lateinit var user: User;
+    private lateinit var groupList: ArrayList<Group>;
+    private var joinedGroup: ArrayList<Group> = ArrayList<Group>();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_social_details, container, false)
+        user = MainActivity.currentUser;
+        groupList = MainActivity.DB_GROUPS;
+
+        binding = FragmentSocialDetailsBinding.inflate(inflater, container, false);
+
+        binding.userName.text = user.name;
+        binding.userGroupNumber.text = user.groups?.size.toString()
+        binding.userProfile.setImageResource(user.profilePic)
+
+
+        if (user.groups?.isEmpty() == true) {
+            binding.exploreButtonView.visibility = View.VISIBLE
+            binding.recommendGroupListView.visibility = View.GONE
+            binding.joinedGroupListView.visibility = View.GONE
+
+            binding.exploreButton.setOnClickListener {
+                binding.exploreButtonView.visibility = View.GONE
+
+                val groupListAdapter = GroupListAdapter(binding.root.context,
+                    groupList.take(groupList.size) as ArrayList<Group>
+                );
+
+                binding.recommendGroupListView.visibility = View.VISIBLE
+                binding.recommendGroupList.adapter = groupListAdapter;
+                binding.recommendGroupList.layoutManager = LinearLayoutManager(binding.root.context)
+            }
+
+        } else {
+            binding.exploreButtonView.visibility = View.GONE
+            binding.recommendGroupListView.visibility = View.GONE
+            binding.joinedGroupListView.visibility = View.VISIBLE
+
+            user.groups!!.forEach { userGroup ->
+                groupList.forEach {
+                    if (it.documentId == userGroup) {
+                        joinedGroup.add(it);
+                    }
+                }
+            }
+
+            val groupListAdapter = GroupListAdapter(binding.root.context,
+                joinedGroup.take(joinedGroup.size) as ArrayList<Group>
+            );
+            binding.joinedGroupList.adapter = groupListAdapter;
+            binding.joinedGroupList.layoutManager = LinearLayoutManager(binding.root.context)
+
+        }
+
+        return binding.root;
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.goToGroupScreen).setOnClickListener {
-            findNavController().navigate(R.id.action_socialDetailsFragment_to_groupDetailsFragment)
-        }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SocialDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SocialDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+//        view.findViewById<Button>(R.id.goToGroupScreen).setOnClickListener {
+//            findNavController().navigate(R.id.action_socialDetailsFragment_to_groupDetailsFragment)
+//        }
     }
 }

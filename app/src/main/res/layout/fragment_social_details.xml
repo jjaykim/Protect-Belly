@@ -1,51 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.social.SocialDetailsFragment">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/user_profile_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:padding="20dp"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_margin="20dp"
-            android:text="@string/Social_Fragment_Title"
-            android:textSize="25sp" />
+        <!--User Profile-->
+        <ImageView
+            android:id="@+id/user_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_account_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
+        <!--User Name-->
         <TextView
+            android:id="@+id/user_name"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_margin="20dp"
-            android:text="@string/Social_Fragment_Title"
-            android:textSize="25sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Jay Kim"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/user_profile"
+            app:layout_constraintStart_toEndOf="@+id/user_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
 
-        <TextView
+        <!--User Joined Group Area-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_margin="20dp"
-            android:text="@string/Social_Fragment_Title"
-            android:textSize="25sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/createGroupButton"
+            app:layout_constraintHorizontal_bias="0.683"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/user_name"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_margin="20dp"
-            android:text="@string/Social_Fragment_Title"
-            android:textSize="25sp" />
+            <TextView
+                android:id="@+id/user_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="Groups"
+                android:textColor="#444"
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
+
+            <!--Number of Joined group-->
+            <TextView
+                android:id="@+id/user_group_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="0"
+                android:textColor="#444"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_message"
+                tools:ignore="HardcodedText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/goToGroupScreen"
+            android:id="@+id/createGroupButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:text="Create"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Divider-->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="?android:attr/listDivider"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/user_profile_box"/>
+
+    <!--Search-->
+    <SearchView
+        android:id="@+id/social_searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search with names of group and organizer"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        />
+
+    <!--Displays the Explore Navigation button-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/explore_button_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/social_searchView"
+        app:layout_constraintVertical_bias="0.388"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/user_not_joined_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/go_to_group_screen" />
+            android:maxLines="1"
+            android:text="Not joining yet"
+            android:textColor="#444"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/explore_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Explore with us"
+            app:layout_constraintTop_toBottomOf="@+id/user_not_joined_group"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    <!--Recommend the groups when the explore button is clicked-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recommend_group_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/social_searchView"
+        tools:ignore="MissingConstraints"
+        android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommend_group_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="NotSibling" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Joined Group list Area-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/joined_group_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/social_searchView">
+
+        <!--Group Area-->
+        <TextView
+            android:id="@+id/joined_group_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Groups"
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText,MissingConstraints" />
+
+        <!--Joined Group list-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/joined_group_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/joined_group_area"
+             />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
