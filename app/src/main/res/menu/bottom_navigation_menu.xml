@@ -4,14 +4,6 @@
         android:id="@+id/workoutDashboardFragment"
         android:title="@string/Tab_Workouts"
         android:icon="@drawable/ic_lifting_icon"/>
-    <item
-        android:id="@+id/calendarDetailsFragment"
-        android:title="@string/Tab_Calendar"
-        android:icon="@drawable/ic_calendar_icon"/>
-    <item
-        android:id="@+id/diaryDetailsFragment"
-        android:title="@string/Tab_Diary"
-        android:icon="@drawable/ic_food_icon"/>
 
     <item
         android:id="@+id/socialDetailsFragment"

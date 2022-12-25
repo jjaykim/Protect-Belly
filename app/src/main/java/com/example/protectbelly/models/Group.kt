@@ -1,6 +1,8 @@
 package com.example.protectbelly.models
 
-class Group {
+import java.io.Serializable
+
+class Group : Serializable, Any {
     var organizerId: String = "";
     var organizerName: String = "";
     var title: String = "";
@@ -10,6 +12,7 @@ class Group {
     var users: ArrayList<String>? = null;
     var documentId: String = ""
     var logo: Int = 0;
+    var location: String = "";
 
     constructor() {}
 
@@ -23,6 +26,7 @@ class Group {
         this.users = group.users
         this.documentId = group.documentId
         this.logo = group.logo
+        this.location = group.location
     }
 
     constructor(
@@ -34,7 +38,8 @@ class Group {
         createdAt: String,
         users: ArrayList<String>?,
         documentId: String,
-        logo: Int
+        logo: Int,
+        location: String
     ) {
         this.organizerId = organizerId
         this.organizerName = organizerName
@@ -45,9 +50,10 @@ class Group {
         this.users = users
         this.documentId = documentId
         this.logo = logo
+        this.location = location
     }
 
     override fun toString(): String {
-        return "Group(organizerId=$organizerId, organizerName=$organizerName, title=$title, type=$type, description=$description, createdAt=$createdAt, users=$users)"
+        return "Group(documentId=$documentId organizerId=$organizerId, organizerName=$organizerName, title=$title, type=$type, description=$description, createdAt=$createdAt, location=$location users=$users)"
     }
 }

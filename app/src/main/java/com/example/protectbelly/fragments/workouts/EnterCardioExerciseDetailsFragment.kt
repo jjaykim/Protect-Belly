@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.protectbelly.databinding.FragmentEnterCardioExerciseDetailsBinding
+import com.example.protectbelly.models.CardioExercise
 import com.example.protectbelly.models.Routine
 import com.example.protectbelly.models.WorkoutExercise
 
@@ -14,6 +15,7 @@ import com.example.protectbelly.models.WorkoutExercise
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "WorkoutExercise"
 private const val ARG_PARAM2 = "Routine"
+private const val ARG_PARAM3 = "WorkoutIndex"
 
 /**
  * A simple [Fragment] subclass.
@@ -24,13 +26,15 @@ class EnterCardioExerciseDetailsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var workoutExercise: WorkoutExercise? = null
     private var routine: Routine? = null
+    private var workoutIndex: Int = 0;
     private lateinit var binding: FragmentEnterCardioExerciseDetailsBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            workoutExercise = it.getSerializable(ARG_PARAM1) as WorkoutExercise
+            workoutExercise = it.getSerializable(ARG_PARAM1) as CardioExercise
             routine = it.getSerializable(ARG_PARAM2) as Routine
+            workoutIndex = it.getInt(ARG_PARAM3);
         }
     }
 
@@ -44,13 +48,25 @@ class EnterCardioExerciseDetailsFragment : Fragment() {
 
         binding.btCardioNext.setOnClickListener {
             if(validateInput()) {
-                routine?.workouts?.last()?.workoutExercises?.add(workoutExercise as WorkoutExercise);
+                if(binding.etHeartRateGoal.text.isNotEmpty()) {
+                    (workoutExercise as CardioExercise).heartRateGoal = binding.etHeartRateGoal.text.toString().toInt();
+                } else {
+                    (workoutExercise as CardioExercise).heartRateGoal = 0;
+                }
+                (workoutExercise as CardioExercise).distanceGoal = binding.etDistanceGoal.text.toString().toInt();
+                (workoutExercise as CardioExercise).timeGoal = binding.etTimeGoal.text.toString().toInt();
+                routine?.workouts?.last()?.workoutExercises?.add(workoutExercise as CardioExercise);
+                var action = EnterCardioExerciseDetailsFragmentDirections.actionEnterCardioExerciseDetailsFragmentToAddRoutineWorkoutDetailsFragment();
+                action.arguments.putSerializable("Routine", routine);
+                action.arguments.putInt("WorkoutIndex", workoutIndex);
+                container?.findNavController()?.navigate(action);
             }
         }
 
         binding.btCardioBack.setOnClickListener {
             var action = EnterCardioExerciseDetailsFragmentDirections.actionEnterCardioExerciseDetailsFragmentToSelectExerciseFragment()
             action.arguments.putSerializable("Routine", routine);
+            action.arguments.putInt("WorkoutIndex", workoutIndex);
             container?.findNavController()?.navigate(action);
         }
 

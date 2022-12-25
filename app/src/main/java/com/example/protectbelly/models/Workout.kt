@@ -17,4 +17,8 @@ class Workout:Serializable {
         this.workoutName = workoutName
         this.workoutExercises = workoutExercises
     }
+
+    override fun toString(): String {
+        return "Workout(workoutName=$workoutName, workoutExercises=$workoutExercises)"
+    }
 }

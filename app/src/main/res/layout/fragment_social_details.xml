@@ -101,17 +101,6 @@
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toBottomOf="@+id/user_profile_box"/>
 
-    <!--Search-->
-    <SearchView
-        android:id="@+id/social_searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search with names of group and organizer"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        />
-
     <!--Displays the Explore Navigation button-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/explore_button_view"
@@ -119,7 +108,7 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/social_searchView"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
         app:layout_constraintVertical_bias="0.388"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
@@ -156,7 +145,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/social_searchView"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
         tools:ignore="MissingConstraints"
         android:visibility="gone">
 
@@ -168,24 +157,46 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recommend_button_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.388"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        >
+
+        <Button
+            android:id="@+id/recommend_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Go to the Recommended Group"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <!--Joined Group list Area-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/joined_group_list_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/social_searchView">
+        app:layout_constraintTop_toBottomOf="@+id/recommend_button_view"
+        android:visibility="gone"
+        >
 
         <!--Group Area-->
         <TextView
             android:id="@+id/joined_group_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Groups"
+            android:text="Joined Groups"
             android:textColor="#000"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -204,6 +215,46 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/joined_group_area"
              />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Other Group list Area-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/other_group_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recommend_button_view"
+        android:visibility="gone">
+
+        <!--Group Area-->
+        <TextView
+            android:id="@+id/other_group_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Might interesting"
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText,MissingConstraints" />
+
+        <!--Joined Group list-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/other_group_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/other_group_area"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

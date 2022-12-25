@@ -12,7 +12,7 @@ class User {
     var targetCarbs: Int? = null;
     var targetProtein: Int? = null;
     var targetFat: Int? = null;
-    var groups: ArrayList<String>? = null;
+    var groups = ArrayList<String>()
     var profilePic: Int = 0;
 
 
@@ -32,7 +32,7 @@ class User {
         targetCarbs: Int?,
         targetProtein: Int?,
         targetFat: Int?,
-        groups: ArrayList<String>?,
+        groups: ArrayList<String>,
         profilePic: Int
     ) {
         this.name = name

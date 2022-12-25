@@ -2,9 +2,11 @@ package com.example.protectbelly.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.protectbelly.databinding.ExerciseListAdapterBinding
+import com.example.protectbelly.models.CalisthenicExercise
 import com.example.protectbelly.models.CardioExercise
 import com.example.protectbelly.models.WeightExercise
 import com.example.protectbelly.models.WorkoutExercise
@@ -49,12 +51,16 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.Companion.I
                 itemBinding.tvExerciseName.text = currItem.name;
                 if(currItem is CardioExercise) {
                     itemBinding.tvSetsTime.text = currItem.timeGoal.toString() + " Minutes";
-                    itemBinding.tvReps.text = "";
-                    itemBinding.tvWeight.text = "";
+                    itemBinding.tvReps.visibility = View.GONE;
+                    itemBinding.tvWeight.visibility = View.GONE;
                 } else if(currItem is WeightExercise) {
                     itemBinding.tvSetsTime.text = currItem.sets.toString() + " Sets";
                     itemBinding.tvReps.text = currItem.reps.toString() + " Reps";
                     itemBinding.tvWeight.text = currItem.weight.toString() + "lbs";
+                } else if(currItem is CalisthenicExercise) {
+                    itemBinding.tvSetsTime.text = currItem.sets.toString() + " Sets";
+                    itemBinding.tvReps.text = currItem.reps.toString() + " Reps";
+                    itemBinding.tvWeight.visibility = View.GONE;
                 }
             }
         }

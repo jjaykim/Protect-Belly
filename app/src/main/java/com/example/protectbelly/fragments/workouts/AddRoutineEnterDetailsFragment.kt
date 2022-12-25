@@ -15,7 +15,7 @@ import com.example.protectbelly.models.Workout
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "WorkoutIndex"
 private const val ARG_PARAM2 = "Routine"
 
 /**
@@ -25,14 +25,14 @@ private const val ARG_PARAM2 = "Routine"
  */
 class AddRoutineEnterDetailsFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var workoutIndex: Int = 0;
     private var routine: Routine? = null;
     private lateinit var binding: FragmentAddRoutineEnterDetailsBinding;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            workoutIndex = it.getInt(ARG_PARAM1);
             routine = it.getSerializable(ARG_PARAM2) as Routine?;
         }
     }
@@ -45,16 +45,19 @@ class AddRoutineEnterDetailsFragment : Fragment() {
         binding.btBack.setOnClickListener {
             val action =  AddRoutineEnterDetailsFragmentDirections.actionAddRoutineEnterDetailsFragmentToAddRoutineUseTemplateFragment();
             action.arguments.putSerializable("Routine", routine);
+            action.arguments.putInt("WorkoutIndex", workoutIndex);
             container?.findNavController()?.navigate(action);
         }
 
         binding.btNext.setOnClickListener {
             if(validateForm()) {
                 routine?.routineName = binding.etRoutineName.text.toString();
-                routine?.numOfVariations = binding.spVariations.selectedItem.toString().toInt()
+                routine?.numOfVariations = binding.spVariations.selectedItem.toString().toInt();
+                routine?.isActive = binding.swIsActive.isActivated;
                 routine?.workouts = ArrayList<Workout>();
                 val action = AddRoutineEnterDetailsFragmentDirections.actionAddRoutineEnterDetailsFragmentToSelectExerciseFragment();
                 action.arguments.putSerializable("Routine", routine)
+                action.arguments.putInt("WorkoutIndex", workoutIndex)
                 container?.findNavController()?.navigate(action);
             }
         }
